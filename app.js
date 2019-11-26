@@ -1,7 +1,8 @@
-const cheerio = require('cheerio');
 const fs = require('fs');
+const open = require('open');
 const axios = require('axios');
 const express = require('express');
+const cheerio = require('cheerio');
 const TurndownService = require('turndown');
 const turndownPluginGfm = require('turndown-plugin-gfm');
 const filenamify = require('filenamify');
@@ -12,7 +13,7 @@ const turndownService = new TurndownService({
   headingStyle: 'atx',
   bulletListMarker: '-',
 });
-var gfm = turndownPluginGfm.gfm;
+const gfm = turndownPluginGfm.gfm;
 turndownService.use(gfm);
 
 function getData() {
@@ -136,9 +137,7 @@ function singleMarkdownFileExport(name, issuesID) {
     .then(function(response) {
       let html_string = response.data.toString(); // 获取网页内容
       const $ = cheerio.load(html_string); // 传入页面内容
-      // console.log($("table").html());
-      var content = turndownService.turndown($('table').html());
-      // console.log(content);
+      const content = turndownService.turndown($('table').html());
       // 判断文件夹路径是否存在
       if (fs.existsSync(fileDirectory)) {
         if (!exportByYear) {
@@ -195,3 +194,4 @@ app.get('/html', (req, res) => {
 });
 
 app.listen(3000, () => console.log('Listening on http://localhost:3000!')); // 监听3000端口
+open('http://localhost:3000');
