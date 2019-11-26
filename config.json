@@ -1,5 +1,7 @@
 {
   "github": {
     "blog": "https://github.com/yanyue404/blog"
-  }
+  },
+  "folder": "docs",
+  "year": false
 }

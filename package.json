@@ -1,11 +1,11 @@
 {
   "name": "issues-to-markdown",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Convert github issues to md files",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.{js,md,json}\"",
-    "dev": "nodemon index.js",
+    "dev": "nodemon app.js",
     "start": "npm run dev"
   },
   "repository": {
