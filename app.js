@@ -140,18 +140,16 @@ function singleMarkdownFileExport(name, issuesID) {
       const content = turndownService.turndown($('table').html());
       // 判断文件夹路径是否存在
       if (fs.existsSync(fileDirectory)) {
-        if (!exportByYear) {
-          fs.writeFile(fileDirectory + fileName + '.md', content, err => {
-            if (err) throw err;
-            console.log(
-              'Markdown - ' +
-                addZero(issuesID, 3) +
-                ' - ' +
-                fileName +
-                ' export successful!',
-            );
-          });
-        }
+        fs.writeFile(fileDirectory + fileName + '.md', content, err => {
+          if (err) throw err;
+          console.log(
+            'Markdown - ' +
+              addZero(issuesID, 3) +
+              ' - ' +
+              fileName +
+              ' export successful!',
+          );
+        });
       } else {
         fs.mkdir(fileDirectory, { recursive: true }, err => {
           if (err) throw err;
@@ -162,7 +160,7 @@ function singleMarkdownFileExport(name, issuesID) {
                 addZero(issuesID, 3) +
                 ' - ' +
                 fileName +
-                ' export successful!',
+                ' export successful! [mkdir]',
             );
           });
         });
@@ -194,4 +192,4 @@ app.get('/html', (req, res) => {
 });
 
 app.listen(3000, () => console.log('Listening on http://localhost:3000!')); // 监听3000端口
-open('http://localhost:3000');
+// open('http://localhost:3000');
