@@ -16,58 +16,49 @@ const turndownService = new TurndownService({
 const gfm = turndownPluginGfm.gfm;
 turndownService.use(gfm);
 
-function getData() {
+function getAPI() {
   return axios
     .get(config.github.blog + '/issues')
     .then(function(response) {
       let html_string = response.data.toString(); // 获取网页内容
       const $ = cheerio.load(html_string); // 传入页面内容
-      let blogs = {};
+      let obj = {};
       const totalPage = $('.pagination')
         .find('a')
         .eq(-2)
         .text();
-      blogs.totalPage = Number(totalPage);
+      obj.totalPage = Number(totalPage);
       const numbers = $('.states a')
         .eq(0)
         .text()
         .trimStart()
         .trimEnd()
         .split(' ')[0];
-      blogs.numbers = Number(numbers);
+      obj.numbers = Number(numbers);
       let urlList = [];
       for (i = totalPage; i > 0; i--) {
         urlList[totalPage - i] =
           config.github.blog + '/issues?page=' + i + ' is:issue is:open';
       }
-      blogs.fetchList = urlList;
-
-      getAllPageIssues(urlList, allIssuesList => {
-        blogs.list = allIssuesList;
+      obj.fetchList = urlList;
+      // 获取所有  Issues 数据,再返回
+      return new Promise(resolve => {
+        getAllPageIssues(urlList, issues => {
+          obj.blogs = issues;
+          saveData(obj);
+          resolve(obj);
+        });
       });
-
-      return Promise.resolve(blogs);
     })
     .catch(function(error) {
       console.log(error);
     });
 }
 
-function getHtml() {
-  return axios
-    .get(config.github.blog + '/issues')
-    .then(response => {
-      return Promise.resolve(response.data.toString());
-    })
-    .catch(error => {
-      console.log(error);
-    });
-}
-
 function getAllPageIssues(fetchUrlsArray, callback) {
   let result = [];
-  axios.all(fetchUrlsArray.map(url => getSimglePageIssuesMessage(url))).then(
-    axios.spread(function(...res) {
+  Promise.all(fetchUrlsArray.map(url => getSimglePageIssuesMessage(url)))
+    .then(res => {
       for (var i = 0; i < res.length; i++) {
         result = result.concat(res[i]);
       }
@@ -75,12 +66,10 @@ function getAllPageIssues(fetchUrlsArray, callback) {
         return Number(y.id) - Number(x.id);
       });
       callback(result);
-      // 导出
-      result.forEach(({ time, title, id }) => {
-        singleMarkdownFileExport(time + '-' + title, id);
-      });
-    }),
-  );
+    })
+    .catch(err => {
+      console.log(err);
+    });
 }
 
 function getSimglePageIssuesMessage(fetchUrl) {
@@ -120,8 +109,44 @@ function getSimglePageIssuesMessage(fetchUrl) {
       console.log(error);
     });
 }
+// 数据保存 至 /data/api.json
+function saveData(data) {
+  const content = JSON.stringify(data);
+  if (fs.existsSync('data/')) {
+    fs.writeFile('data/' + 'api.json', content, err => {
+      if (err) throw err;
+      console.log('Api.json saved successful!');
+    });
+  }
+}
+
+function getHtml() {
+  return axios
+    .get(config.github.blog + '/issues')
+    .then(response => {
+      return Promise.resolve(response.data.toString());
+    })
+    .catch(error => {
+      console.log(error);
+    });
+}
+function exportAllMarkdown() {
+  let file = 'data/api.json';
+  if (fs.existsSync(file)) {
+    fs.readFile(file, 'utf8', function(err, data) {
+      if (err) console.log(err);
+      const issues = JSON.parse(data).blogs;
+      // 导出
+      issues.forEach(({ time, title, id }, index, array) => {
+        singleMarkdownFileExport(time + '-' + title, id, array.length);
+      });
+    });
+  } else {
+    console.log('not find' + file);
+  }
+}
 // 单个 md 文件导出
-function singleMarkdownFileExport(name, issuesID) {
+function singleMarkdownFileExport(name, issuesID, totalCount) {
   let fileName = filenamify(name);
   const exportByYear = config.year;
   const fileDirectory = exportByYear
@@ -129,7 +154,6 @@ function singleMarkdownFileExport(name, issuesID) {
     : config.folder + '/';
   let url = config.github.blog + '/issues/' + issuesID; // 拼接请求的页面链接
   const addZero = (num, length) => {
-    //这里用slice和substr均可
     return (Array(length).join('0') + num).slice(-length);
   };
   return axios
@@ -147,7 +171,7 @@ function singleMarkdownFileExport(name, issuesID) {
               addZero(issuesID, 3) +
               ' - ' +
               fileName +
-              ' export successful!',
+              ' export successful! ',
           );
         });
       } else {
@@ -174,21 +198,25 @@ function singleMarkdownFileExport(name, issuesID) {
       );
     });
 }
-
 app.get('/', (req, res) => {
-  let promise = getData(); // 发起抓取
+  let promise = getHtml();
+  promise.then(html => {
+    res.send(html);
+    res.end();
+  });
+});
+app.get('/api', (req, res) => {
+  let promise = getAPI(); // 发起抓取
   promise.then(response => {
     //markdown.markHtml(); 是将markdown格式的字符转换成Html
     res.send(response);
     res.end();
   });
 });
-app.get('/html', (req, res) => {
-  let promise = getHtml();
-  promise.then(html => {
-    res.send(html);
-    res.end();
-  });
+app.get('/export', (req, res) => {
+  exportAllMarkdown();
+  res.send();
+  res.end();
 });
 
 app.listen(3000, () => console.log('Listening on http://localhost:3000!')); // 监听3000端口
