@@ -45,7 +45,7 @@ The configuration file is [config.json](./config.json)
 
 ## How to export
 
-Start app at http://localhost:3000/:
+Start app :
 
 ```bash
 # Startup project
