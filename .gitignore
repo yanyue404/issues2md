@@ -3,6 +3,7 @@
 .idea
 .vscode
 *.sublime-*
+build
 
 # npm
 node_modules
