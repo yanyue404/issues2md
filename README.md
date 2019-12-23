@@ -25,7 +25,7 @@ $ npm install
 
 ## Options
 
-The configuration file is [config.json](./config.json)
+The configuration file is [config.json](./config/config.json)
 
 ```json
 {
@@ -75,6 +75,7 @@ You can beautify the results you get.
 # Format file
 $ npm prettier
 ```
+
 ## Thanks
 
 - [Crawler-for-Github-Trending](https://github.com/ZY2071/Crawler-for-Github-Trending) - 🕷️ A node crawler for github trending. http://zy2071.com/Fun/todayGithub.html
