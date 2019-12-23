@@ -36,7 +36,7 @@ var obj = {
   name: 'obj',
   f: function() {
     return this + ':' + this.name;
-  },
+  }
 };
 document.write(obj.f()); //[object Object]:obj
 ```
@@ -50,8 +50,8 @@ var obj = {
     name: 'nestedobj',
     f: function() {
       return this + ':' + this.name;
-    },
-  },
+    }
+  }
 };
 
 document.write(obj.nestedobj.f()); //[object Object]:nestedobj
@@ -61,7 +61,7 @@ document.write(obj.nestedobj.f()); //[object Object]:nestedobj
 
 ```js
 var obj1 = {
-  name: 'obj1',
+  name: 'obj1'
 };
 
 function returnName() {
@@ -87,7 +87,7 @@ var obj = {
       return this + ':' + this.context;
     }
     return f(); //invoked without context
-  },
+  }
 };
 
 document.write(obj.method()); //[object Window]:global
@@ -115,7 +115,7 @@ document.write(obj1.myname); //simple function
 var ProtoObj = {
   fun: function() {
     return this.a;
-  },
+  }
 };
 //Object.create() 使用ProtoObj创建对象
 //原型并将其分配给obj3，从而使fun()成为其原型链上的方法
@@ -154,10 +154,10 @@ document.write(h() + '<br />'); //NaN
 
 ### 7.在事件处理中
 
-- 将函数直接分配给元素的事件处理函数时，直接在事件处理函数内使用该函数会引用相应的元素。这种直接的函数分配可以使用 addeventListener 方法或通过传统的事件注册方法（如 onclick）来完成。
-- 同样，当你直接在事件属性中使用这个元素（比如<button onclick =“... this ...”>）时，它指向元素。
-- 但是，通过在事件处理函数或事件属性内部调用的其他函数间接使用这个函数，会解析为全局对象窗口。
-- 当我们使用 Microsoft 的事件注册模型方法 attachEvent 将该函数附加到事件处理函数时，可以实现上述相同的行为。它不是将该函数分配给事件处理程序（并因此使该元素的函数方法），而是调用该事件上的函数（在全局上下文中有效地调用它）。
+-   将函数直接分配给元素的事件处理函数时，直接在事件处理函数内使用该函数会引用相应的元素。这种直接的函数分配可以使用 addeventListener 方法或通过传统的事件注册方法（如 onclick）来完成。
+-   同样，当你直接在事件属性中使用这个元素（比如<button onclick =“... this ...”>）时，它指向元素。
+-   但是，通过在事件处理函数或事件属性内部调用的其他函数间接使用这个函数，会解析为全局对象窗口。
+-   当我们使用 Microsoft 的事件注册模型方法 attachEvent 将该函数附加到事件处理函数时，可以实现上述相同的行为。它不是将该函数分配给事件处理程序（并因此使该元素的函数方法），而是调用该事件上的函数（在全局上下文中有效地调用它）。
 
 ```html
 <h3>在事件处理程序或事件属性中直接使用this</h3>
@@ -198,13 +198,13 @@ document.getElementById('button1').addEventListener('click', clickedMe, false);
 document.getElementById('button2').onclick = clickedMe;
 ```
 
-- [在线 jsfiddle](http://jsfiddle.net/Mahesha999/xKtzC/8/embedded/html%2Cjs%2Cresult/)
+-   [在线 jsfiddle](http://jsfiddle.net/Mahesha999/xKtzC/8/embedded/html%2Cjs%2Cresult/)
 
 ### 8.箭头函数的 this
 
 箭头函数转成 ES5 的代码如下。
 
-下面代码中，转换后的 ES5 版本清楚地说明了，箭头函数里面根本没有自己的 this，而是引用外层的 this。
+下面代码中，转换后的 ES5 版本清楚地说明了，箭头函数里面根本没有自己的this，而是引用外层的this。
 
 ```js
 // ES6
@@ -218,7 +218,7 @@ function foo() {
 function foo() {
   var _this = this;
 
-  setTimeout(function() {
+  setTimeout(function () {
     console.log('id:', _this.id);
   }, 100);
 }
@@ -231,9 +231,9 @@ var obj = {
   i: 10,
   b: () => console.log(this.i, this),
   c: function() {
-    console.log(this.i, this);
-  },
-};
+    console.log( this.i, this)
+  }
+}
 obj.b();
 // undefined Window
 obj.c();
@@ -249,7 +249,7 @@ obj.c();
 5.  当在原型链上定义的函数内部使用时， `this` 代表此对象
 6.  在 call(),apply(),和 bind()函数调用时，`this` 代表对应方法传入的第一个参数
 7.  在事件处理中于 js 中绑定或注册，或在 html 中注册并直接使用 this 关键字（非丢失 this 指向），this 代表 `html 元素`，在事件处理与元素上直接绑定事件方法名会使得 this 指向 `window`
-8.  箭头函数中，`this`代表其位置外层的 this 对象
+8.  箭头函数中，`this`代表其位置外层的this对象
 
 ## 小测验
 
@@ -265,7 +265,7 @@ if (true) {
 
 ```js
 var obj = {
-  someData: 'a string',
+  someData: 'a string'
 };
 
 function myFun() {
@@ -284,7 +284,7 @@ console.log('this is obj:', obj.staticFunction() == obj);
 var obj = {
   myMethod: function() {
     return this; // What is `this` here?
-  },
+  }
 };
 var myFun = obj.myMethod;
 console.log('this is window:', myFun() == window);
@@ -300,7 +300,7 @@ function myFun() {
 var obj = {
   myMethod: function() {
     eval('myFun()');
-  },
+  }
 };
 ```
 
@@ -311,7 +311,7 @@ function myFun() {
   return this; // What is `this` here?
 }
 var obj = {
-  someData: 'a string',
+  someData: 'a string'
 };
 console.log('this is window:', myFun.call(obj) == window);
 console.log('this is obj:', myFun.call(obj) == obj);
@@ -319,16 +319,16 @@ console.log('this is obj:', myFun.call(obj) == obj);
 
 ### 公布答案
 
-- demo1: window
-- demo2: obj
-- demo3: window
-- demo4: window
-- demo5: obj
+-   demo1: window
+-   demo2: obj
+-   demo3: window
+-   demo4: window
+-   demo5: obj
 
 ###### 参考
 
-- [http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html](http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html)
-- [https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3](https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3)
-- [https://stackoverflow.com/a/3127440/1751946](https://stackoverflow.com/a/3127440/1751946)
-- [http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0](http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
-- [mqyqingfeng/Blog#85](https://github.com/mqyqingfeng/Blog/issues/85)
+-   [http://www.ruanyifeng.com/blog/2010/04/using\_this\_keyword\_in\_javascript.html](http://www.ruanyifeng.com/blog/2010/04/using_this_keyword_in_javascript.html)
+-   [https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3](https://codeburst.io/the-simple-rules-to-this-in-javascript-35d97f31bde3)
+-   [https://stackoverflow.com/a/3127440/1751946](https://stackoverflow.com/a/3127440/1751946)
+-   [http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0](http://es6.ruanyifeng.com/#docs/function#%E7%AE%AD%E5%A4%B4%E5%87%BD%E6%95%B0)
+-   [mqyqingfeng/Blog#85](https://github.com/mqyqingfeng/Blog/issues/85)

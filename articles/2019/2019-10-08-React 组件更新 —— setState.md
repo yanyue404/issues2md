@@ -6,9 +6,9 @@
 
 ## setState 接受对象参数
 
-- 异步机制
-- **有效合并更新**（一个生命周期内的所有 setState 方法会合并操作，原则为只取最后一个）
-- 可添加第二个 `callback`参数获取更新后的 state
+-   异步机制
+-   **有效合并更新**（一个生命周期内的所有 setState 方法会合并操作，原则为只取最后一个）
+-   可添加第二个 `callback`参数获取更新后的 state
 
 demo 展示：
 
@@ -17,7 +17,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      count: 0
     };
   }
   componentDidMount() {
@@ -46,12 +46,12 @@ class App extends React.Component {
 
 执行分析：
 
-- Start
-  - 初始化 state && props
-  - 初次 render
-  - componentDidMount 异步，合并更新,只取最后一个有效更新条件 `{ count: this.state.count + 1 }`
-  - render
-- End
+-   Start
+    -   初始化 state && props
+    -   初次 render
+    -   componentDidMount 异步，合并更新,只取最后一个有效更新条件 `{ count: this.state.count + 1 }`
+    -   render
+-   End
 
 对象批处理是怎样的：
 
@@ -62,7 +62,7 @@ const singleObject = Object.assign(
   {},
   objectFromSetState1,
   objectFromSetState2,
-  objectFromSetState3,
+  objectFromSetState3
 );
 ```
 
@@ -85,7 +85,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      count: 0
     };
   }
 
@@ -121,8 +121,8 @@ class App extends React.Component {
 
 既然在对象参数中批量更新只有最后一个扩充对象被保留，那么，怎样使得 `setState` 的批量更新全部有效呢？这就引入了第二个类型的参数 —— 使用函数作为参数进行传递。
 
-- 异步机制
-- **计算合并更新**（利用上一次 setState 结果进行运算）
+-   异步机制
+-   **计算合并更新**（利用上一次 setState 结果进行运算）
 
 demo 展示：
 
@@ -131,7 +131,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 0,
+      count: 0
     };
   }
   componentDidMount() {
@@ -166,12 +166,12 @@ class App extends React.Component {
 
 执行分析：
 
-- Start
-  - 初始化 state && props
-  - 初次 render
-  - componentDidMount 异步，计算合并更新（将条件串起来批量更新） `3` \* `{ count: prevState.count + 1 }`
-  - render
-- End
+-   Start
+    -   初始化 state && props
+    -   初次 render
+    -   componentDidMount 异步，计算合并更新（将条件串起来批量更新） `3` \* `{ count: prevState.count + 1 }`
+    -   render
+-   End
 
 实际内部的批量更新队列类似于：
 
@@ -179,7 +179,7 @@ class App extends React.Component {
 const updateQueue = [
   state => ({ count: state.count + 1 }),
   state => ({ count: state.count + 1 }),
-  state => ({ count: state.count + 1 }),
+  state => ({ count: state.count + 1 })
 ];
 ```
 
@@ -193,7 +193,7 @@ const updateQueue = [
 
 ### 参考文章
 
-- [How to become a pro with React setState() in 10 minutes](https://www.freecodecamp.org/news/get-pro-with-react-setstate-in-10-minutes-d38251d1c781/)
-- [React.js 小书 —— 组件的 state 和 setState](http://huziketang.mangojuice.top/books/react/lesson10)
-- [React Doc —— 组件状态](https://zh-hans.reactjs.org/docs/faq-state.html#when-is-setstate-asynchronous)
-- [React 中的宝藏：setState 函数](https://www.oschina.net/translate/functional-setstate-is-the-future-of-react)
+-   [How to become a pro with React setState() in 10 minutes](https://www.freecodecamp.org/news/get-pro-with-react-setstate-in-10-minutes-d38251d1c781/)
+-   [React.js 小书 —— 组件的 state 和 setState](http://huziketang.mangojuice.top/books/react/lesson10)
+-   [React Doc —— 组件状态](https://zh-hans.reactjs.org/docs/faq-state.html#when-is-setstate-asynchronous)
+-   [React 中的宝藏：setState 函数](https://www.oschina.net/translate/functional-setstate-is-the-future-of-react)

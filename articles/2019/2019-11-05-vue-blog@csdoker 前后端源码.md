@@ -2,9 +2,9 @@
 
 透过读源码快速回顾 Vue 技术栈的实践，感谢作者 [csdoker](https://github.com/csdoker) 开源 ~
 
-- [vue-blog](https://github.com/csdoker/vue-blog)
-- [vue-blog-server](https://github.com/csdoker/vue-blog-server)
-- [hexo-theme-yilia](https://github.com/litten/hexo-theme-yilia)
+-   [vue-blog](https://github.com/csdoker/vue-blog)
+-   [vue-blog-server](https://github.com/csdoker/vue-blog-server)
+-   [hexo-theme-yilia](https://github.com/litten/hexo-theme-yilia)
 
 [![123.gif](https://camo.githubusercontent.com/310f83cfee1b614bf1d03b5eb0a89e1dea856083/687474703a2f2f7777312e73696e61696d672e636e2f6d773639302f64663535316561356c793167386e6c316e35316638673231683030726d316c302e676966)](https://camo.githubusercontent.com/310f83cfee1b614bf1d03b5eb0a89e1dea856083/687474703a2f2f7777312e73696e61696d672e636e2f6d773639302f64663535316561356c793167386e6c316e35316638673231683030726d316c302e676966)
 
@@ -21,7 +21,7 @@ $ node ./bin/www
 
 ### 项目简介
 
-- 路由
+-   路由
 
 ```shell
 # 主页
@@ -58,14 +58,12 @@ $ node ./bin/www
 ```
 
 ```html
-<MainMobileNav></MainMobileNav>
-<!-- 移动端响应式使用 -->
-<slot></slot>
-<!-- 暴露路由插槽 -->
+<MainMobileNav></MainMobileNav> <!-- 移动端响应式使用 -->
+<slot></slot>  <!-- 暴露路由插槽 -->
 <MainFooter></MainFooter>
 ```
 
-- 数据流
+-   数据流
 
 ```shell
 # state
@@ -115,13 +113,13 @@ export default {
 4.  组件添加 show 类名，阴影边框
 5.  组件为 白色加透明 `rgba(255,255,255,0.3)`
 
-- 项目依赖
-  - fastclick
-  - vue-loading-template
-  - vue-preview
-  - vue-markdown
-  - vue-prism md 语法高亮
-  - vue-wheels 自制分页组件
+-   项目依赖
+    -   fastclick
+    -   vue-loading-template
+    -   vue-preview
+    -   vue-markdown
+    -   vue-prism md 语法高亮
+    -   vue-wheels 自制分页组件
 
 ### 动画效果
 
@@ -217,188 +215,168 @@ export default {
   <div class="article-directory" v-if="isShowDirectory">
     <div class="directory-head">目录</div>
     <div class="directory-body">
-      <article-directory-body
-        @setDirectory="setDirectory"
-        :directories="directories"
-      ></article-directory-body>
+      <article-directory-body @setDirectory="setDirectory" :directories="directories"></article-directory-body>
     </div>
   </div>
 </template>
 
 <script>
-  import ArticleDirectoryBody from './ArticleDirectoryBody';
+import ArticleDirectoryBody from './ArticleDirectoryBody'
 
-  export default {
-    name: 'ArticleDirectory',
-    components: {
-      ArticleDirectoryBody,
+export default {
+  name: 'ArticleDirectory',
+  components: {
+    ArticleDirectoryBody
+  },
+  data () {
+    return {
+      isShowDirectory: false,
+      directories: [],
+      lastDirectoryIndex: 0,
+      clickDirectoryIndex: 0,
+      appElem: document.querySelector('#app')
+    }
+  },
+  methods: {
+    // 获取文件标题目录
+    getDirectories () {
+      let directoryElems = document.querySelector('.article-data').querySelectorAll('h1,h2,h3,h4,h5,h6')
+      if (directoryElems.length !== 0) {
+        this.isShowDirectory = true
+      } else {
+        this.isShowDirectory = false
+        return
+      }
+      directoryElems.forEach((element, elemIndex) => {
+        element.id = `articleHeader${elemIndex}`
+        this.directories.push({
+          index: elemIndex,
+          title: element.innerText || element.textContent,
+          offsetTop: element.offsetTop,
+          isActive: false,
+          tagName: element.tagName,
+          children: []
+        })
+      })
     },
-    data() {
-      return {
-        isShowDirectory: false,
-        directories: [],
-        lastDirectoryIndex: 0,
-        clickDirectoryIndex: 0,
-        appElem: document.querySelector('#app'),
-      };
+    // 格式化标题目录结构
+    formatDirectories (arr, i, parent) {
+      if (i >= arr.length) {
+        return i
+      }
+      let current = arr[i]
+      // 外层插入
+      if (current.tagName > parent.tagName) {
+        parent.children.push(current)
+      } else {
+        return i
+      }
+      i++
+      let next = arr[i]
+      if (!next) {
+        return i
+      }
+       // 内层继续插入
+      if (next.tagName > current.tagName) {
+        current.children = []
+        i = this.formatDirectories(arr, i, current)
+      }
+      // 递归
+      return this.formatDirectories(arr, i, parent)
     },
-    methods: {
-      // 获取文件标题目录
-      getDirectories() {
-        let directoryElems = document
-          .querySelector('.article-data')
-          .querySelectorAll('h1,h2,h3,h4,h5,h6');
-        if (directoryElems.length !== 0) {
-          this.isShowDirectory = true;
-        } else {
-          this.isShowDirectory = false;
-          return;
+    // 重置 取消所有高亮标记
+    resetDirectories (node) {
+      node.forEach(item => {
+        if (item.isActive) {
+          item.isActive = false
+          return true
         }
-        directoryElems.forEach((element, elemIndex) => {
-          element.id = `articleHeader${elemIndex}`;
-          this.directories.push({
-            index: elemIndex,
-            title: element.innerText || element.textContent,
-            offsetTop: element.offsetTop,
-            isActive: false,
-            tagName: element.tagName,
-            children: [],
-          });
-        });
-      },
-      // 格式化标题目录结构
-      formatDirectories(arr, i, parent) {
-        if (i >= arr.length) {
-          return i;
-        }
-        let current = arr[i];
-        // 外层插入
-        if (current.tagName > parent.tagName) {
-          parent.children.push(current);
-        } else {
-          return i;
-        }
-        i++;
-        let next = arr[i];
-        if (!next) {
-          return i;
-        }
-        // 内层继续插入
-        if (next.tagName > current.tagName) {
-          current.children = [];
-          i = this.formatDirectories(arr, i, current);
-        }
-        // 递归
-        return this.formatDirectories(arr, i, parent);
-      },
-      // 重置 取消所有高亮标记
-      resetDirectories(node) {
-        node.forEach(item => {
-          if (item.isActive) {
-            item.isActive = false;
-            return true;
+        item.children && this.resetDirectories(item.children)
+      })
+    },
+    // 选中高亮标记 isActive
+    findDirectories (node) {
+      if (this.clickDirectoryIndex !== this.lastDirectoryIndex) {
+        node.forEach((item, index) => {
+          if (this.appElem.scrollTop >= document.querySelector(`#articleHeader${item.index}`).offsetTop) {
+            // 清除所有高亮单独添加
+            this.resetDirectories(this.directories)
+            item.isActive = true
+          } else {
+            item.isActive = false
           }
-          item.children && this.resetDirectories(item.children);
-        });
-      },
-      // 选中高亮标记 isActive
-      findDirectories(node) {
-        if (this.clickDirectoryIndex !== this.lastDirectoryIndex) {
-          node.forEach((item, index) => {
-            if (
-              this.appElem.scrollTop >=
-              document.querySelector(`#articleHeader${item.index}`).offsetTop
-            ) {
-              // 清除所有高亮单独添加
-              this.resetDirectories(this.directories);
-              item.isActive = true;
-            } else {
-              item.isActive = false;
-            }
-            // 有子数据的先遍历子数据
-            item.children && this.findDirectories(item.children);
-          });
-        } else {
-          this.clickDirectoryIndex = 0;
-        }
-      },
-      setDirectory(item) {
-        this.clickDirectoryIndex = item.index;
-        if (item.index === this.lastDirectoryIndex) {
-          this.resetDirectories(this.directories);
-          item.isActive = true;
-        }
-      },
-      handleScroll(e) {
-        this.findDirectories(this.directories);
-      },
+          // 有子数据的先遍历子数据
+          item.children && this.findDirectories(item.children)
+        })
+      } else {
+        this.clickDirectoryIndex = 0
+      }
     },
-    mounted() {
-      let root = {
-        index: -1,
-        title: '',
-        offsetTop: 0,
-        isActive: false,
-        tagName: 'H0',
-        children: [],
-      };
-      this.$nextTick(() => {
-        this.getDirectories();
-        console.log(this.directories);
-        this.lastDirectoryIndex = this.directories[
-          this.directories.length - 1
-        ].index;
-        this.formatDirectories(this.directories, 0, root);
-        this.directories = root.children;
-        this.appElem.addEventListener('scroll', this.handleScroll);
-      });
+    setDirectory (item) {
+      this.clickDirectoryIndex = item.index
+      if (item.index === this.lastDirectoryIndex) {
+        this.resetDirectories(this.directories)
+        item.isActive = true
+      }
     },
-    destroyed() {
-      this.appElem.removeEventListener('scroll', this.handleScroll);
-    },
-  };
+    handleScroll (e) {
+      this.findDirectories(this.directories)
+    }
+  },
+  mounted () {
+    let root = {
+      index: -1,
+      title: '',
+      offsetTop: 0,
+      isActive: false,
+      tagName: 'H0',
+      children: []
+    }
+    this.$nextTick(() => {
+      this.getDirectories()
+      console.log(this.directories)
+      this.lastDirectoryIndex = this.directories[this.directories.length - 1].index
+      this.formatDirectories(this.directories, 0, root)
+      this.directories = root.children
+      this.appElem.addEventListener('scroll', this.handleScroll)
+    })
+  },
+  destroyed () {
+    this.appElem.removeEventListener('scroll', this.handleScroll)
+  }
+}
 </script>
 ```
 
 ```html
 <template lang="html">
   <ul>
-    <li
-      :class="{'active': item.isActive, 'normal': !item.isActive}"
-      v-for="(item, index) of directories"
-      :key="index"
-    >
+    <li :class="{'active': item.isActive, 'normal': !item.isActive}" v-for="(item, index) of directories" :key="index">
       <a href="javascript:;" @click="goAnchor(item)">{{item.title}}</a>
-      <article-directory-body
-        @setDirectory="setDirectory"
-        v-if="item.children"
-        :directories="item.children"
-      ></article-directory-body>
+      <article-directory-body @setDirectory="setDirectory" v-if="item.children" :directories="item.children"></article-directory-body>
     </li>
   </ul>
 </template>
 
 <script>
-  export default {
-    name: 'ArticleDirectoryBody',
-    props: {
-      directories: Array,
+export default {
+  name: 'ArticleDirectoryBody',
+  props: {
+    directories: Array
+  },
+  data () {
+    return {}
+  },
+  methods: {
+    goAnchor (item) {
+      this.$emit('setDirectory', item)
+      document.querySelector('#app').scrollTop = document.querySelector(`#articleHeader${item.index}`).offsetTop
     },
-    data() {
-      return {};
-    },
-    methods: {
-      goAnchor(item) {
-        this.$emit('setDirectory', item);
-        document.querySelector('#app').scrollTop = document.querySelector(
-          `#articleHeader${item.index}`,
-        ).offsetTop;
-      },
-      setDirectory(item) {
-        this.$emit('setDirectory', item);
-      },
-    },
-  };
+    setDirectory (item) {
+      this.$emit('setDirectory', item)
+    }
+  }
+}
 </script>
 ```
 
@@ -443,31 +421,32 @@ app.get('/album', api.album);
     }
   ]
 }
+
 ```
 
 > 参考 [node-in-debugging](https://github.com/nswbmw/node-in-debugging/blob/master/4.3%20Visual%20Studio%20Code.md)
 
 **主页**
 
-- `/articlelist?page=1` 文章列表
+-   `/articlelist?page=1` 文章列表
 
 根据页码参数 `page`与 `data/articles.json`（含有 "articleId"，"articleTitle"，"articleDate"，articleTags","articleCategories" 等关键文章信息） 确定分页展示条数`id`，再与 `articles` 文件夹里的 `md`文档 组合（新增 articleContent 参数）返回文章分页数据。
 
-- `/article?id=24` 文章详情
+-   `/article?id=24` 文章详情
 
 根据传入的 `id`参数与 读取 `articles`文件夹下的相应 `md`数据，再与 `data/articles.json` 同 `文章 id`的原有数据合并，返回单个文章详情。
 
-- `searchlist?keyword=1` 搜索列表
+-   `searchlist?keyword=1` 搜索列表
 
 根据传入的搜索参数，在 `data/articles.json`中进行匹配，支持 `articleTitle` 标题与 `articleTags` 标签匹配。
 
-- `/articletag` 文章标签列表
+-   `/articletag` 文章标签列表
 
 根据 `data/articles.json` 文章数据中 `articleTags`数组参数合并而来。
 
 **归档列表页**
 
-- `/archivelist?page=1`
+-   `/archivelist?page=1`
 
 根据传入的分页参数，以及 `data/articles.json` 文章 数据中的时间参数 `articleDate`，将每页展示的 10 个数据进行构建为新的按时间年限分布的数据：
 
@@ -484,12 +463,12 @@ app.get('/album', api.album);
 
 **读书与相册页**
 
-- `/booklist` & `/album`
+-   `/booklist` & `/album`
 
 分别使用 `data/books.json`与`data/album.json`做为源数据返回。
 
 **关于页**
 
-- `/about` 关于页
+-   `/about` 关于页
 
 关于页读取 `about/about.md` 文档的使用 json 格式返回。

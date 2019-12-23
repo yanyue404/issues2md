@@ -1,7 +1,7 @@
 {
   "github": {
-    "blog": "https://github.com/mqyqingfeng/Blog"
+    "blog": "https://github.com/yanyue404/blog"
   },
-  "folder": "test",
-  "year": false
+  "folder": "articles",
+  "year": true
 }

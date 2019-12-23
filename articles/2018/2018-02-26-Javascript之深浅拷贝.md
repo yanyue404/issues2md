@@ -56,11 +56,11 @@ console.log(arr); // ['new', ['old']]
 console.log(new_arr); // [{old: 'old'}, ['old']]
 ```
 
-常用方法为：Object.assign(target, sources...),Array.prototype.slice(), Array.prototype.concat(), jQury 的\$.extend({},obj)...
+常用方法为：Object.assign(target, sources...),Array.prototype.slice(), Array.prototype.concat(), jQury 的$.extend({},obj)...
 
 ## 深拷贝
 
-深拷贝后，两个对象，包括其内部的元素互不干扰。常见方法有 JSON.parse(JSON.stringify(obj));，jQury 的\$.extend(true,{},obj)，lodash 的\*.cloneDeep 和\*.clone(value, true)。例：
+深拷贝后，两个对象，包括其内部的元素互不干扰。常见方法有 JSON.parse(JSON.stringify(obj));，jQury 的$.extend(true,{},obj)，lodash 的\*.cloneDeep 和\*.clone(value, true)。例：
 
 ```js
 var arr = ['old', 1, true, ['old1', 'old2'], { old: 1 }];
@@ -172,5 +172,5 @@ function deepClone(values) {
 
 #### 参考
 
-- [mqyqingfeng/Blog#32](https://github.com/mqyqingfeng/Blog/issues/32)
-- [https://www.jianshu.com/p/a4e1e7b6f4f8](https://www.jianshu.com/p/a4e1e7b6f4f8)
+-   [mqyqingfeng/Blog#32](https://github.com/mqyqingfeng/Blog/issues/32)
+-   [https://www.jianshu.com/p/a4e1e7b6f4f8](https://www.jianshu.com/p/a4e1e7b6f4f8)

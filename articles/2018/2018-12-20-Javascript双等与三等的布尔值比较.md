@@ -24,7 +24,7 @@ null == undefined; // ture
 
 ```js
 1 == '1'; // true
-0 == ''; // true
+0 == ''; // true 
 0 == '0'; // true
 ```
 
@@ -38,8 +38,9 @@ null == undefined; // ture
 ```
 
 5.  If Type(x) is either String, Number, or Symbol and Type(y) is Object, then return the result of the comparison x == [ToPrimitive](http://www.ecma-international.org/ecma-262/6.0/#sec-toprimitive)(y), vice versa.
-
+    
 6.  Return false.
+    
 
 ## 三等比较
 
@@ -48,10 +49,10 @@ The comparison x === y, where x and y are values, produces true or false. Such a
 1.  If Type(x) is different from Type(y), return false.
 
 ```js
-1 === '1'; // false
+1 === "1"; // false
 ```
 
-2.  If Type(x) is Undefined, return true. (按顺序执行，x 与 y 须类型一致，以下一样除了 第 9)
+2.  If Type(x) is Undefined, return true. (按顺序执行，x 与 y 须类型一致，以下一样除了 第9)
 3.  If Type(x) is Null, return true.
 4.  If Type(x) is Number, then
 
@@ -85,7 +86,7 @@ The comparison x === y, where x and y are values, produces true or false. Such a
 
 ## 总结
 
-`==` 运算符有可能是在进行必要的类型转换后，才再比较。`===` 运算符不会进行类型转换，所以如果两个值不是相同的类型，会直接返回 false。使用`==` 时，可能发生一些特别的事情，例如：
+`==` 运算符有可能是在进行必要的类型转换后，才再比较。`===` 运算符不会进行类型转换，所以如果两个值不是相同的类型，会直接返回false。使用`==` 时，可能发生一些特别的事情，例如：
 
 ```js
 1 == '1'; // true
@@ -96,7 +97,7 @@ The comparison x === y, where x and y are values, produces true or false. Such a
 0 == false; // true
 ```
 
-建议是从不使用 `==` 运算符，除了方便与 `null` 或 undefined 比较时，`a == null`如果 a 为 null 或 undefined 将返回 true。
+建议是从不使用 `==` 运算符，除了方便与 `null` 或undefined比较时，`a == null`如果a为null或undefined将返回true。
 
 ```js
 var a = null;
@@ -106,6 +107,6 @@ console.log(a == undefined); // true
 
 #### 参考
 
-- [abstract-equality-comparison](http://www.ecma-international.org/ecma-262/6.0/#sec-abstract-equality-comparison)
-- [strict-equality-comparison](http://www.ecma-international.org/ecma-262/6.0/#sec-strict-equality-comparison)
-- [\["0"\]==\["0"\]为什么是 false？](https://www.zhihu.com/question/42328292)
+-   [abstract-equality-comparison](http://www.ecma-international.org/ecma-262/6.0/#sec-abstract-equality-comparison)
+-   [strict-equality-comparison](http://www.ecma-international.org/ecma-262/6.0/#sec-strict-equality-comparison)
+-   [\["0"\]==\["0"\]为什么是false？](https://www.zhihu.com/question/42328292)

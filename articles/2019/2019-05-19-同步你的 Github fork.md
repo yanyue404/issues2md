@@ -33,7 +33,7 @@ origin  https://github.com/xiaoyueyue165/taro.git (fetch)
 origin  https://github.com/xiaoyueyue165/taro.git (push)
 ```
 
-- 添加上游仓库
+-   添加上游仓库
 
 ```shell
 $ git remote add upsteream https://github.com/NervJS/taro.git
@@ -41,7 +41,7 @@ $ git remote add upsteream https://github.com/NervJS/taro.git
 
 [![](https://camo.githubusercontent.com/e55e4f2077cb63385762415f24ea3fe2c5dc78a9/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c79316733366668336f3068616a32307a6c306e727768672e6a7067)](https://camo.githubusercontent.com/e55e4f2077cb63385762415f24ea3fe2c5dc78a9/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c79316733366668336f3068616a32307a6c306e727768672e6a7067)
 
-- 再次查看远程仓库指向地址列表，确认添加
+-   再次查看远程仓库指向地址列表，确认添加
 
 ```shell
 $  git remote -v
@@ -69,11 +69,11 @@ $ git merge upsteream/master
 
 此时会发现本地 master 分支的 `commit` 日志已经与原仓库的日志保持一致
 
-- 本地 master
+-   本地 master
 
 [![](https://camo.githubusercontent.com/32c9c92a247ca87fa22c56291fa1b5990cbfa199/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c793167333666646d6d6534776a323161353068343736302e6a7067)](https://camo.githubusercontent.com/32c9c92a247ca87fa22c56291fa1b5990cbfa199/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c793167333666646d6d6534776a323161353068343736302e6a7067)
 
-- 原始仓库
+-   原始仓库
 
 [![](https://camo.githubusercontent.com/55f1942cbe2b6008e9b21b8df7d6164bd879da5f/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c793167333666697439767a686a32307864306e7474627a2e6a7067)](https://camo.githubusercontent.com/55f1942cbe2b6008e9b21b8df7d6164bd879da5f/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c793167333666697439767a686a32307864306e7474627a2e6a7067)
 
@@ -85,7 +85,7 @@ $ git push origin master
 
 [![](https://camo.githubusercontent.com/9e749dab7931ecb5ac430230831b562881e4627d/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c7931673336666d30697630626a32306c3830366a3074362e6a7067)](https://camo.githubusercontent.com/9e749dab7931ecb5ac430230831b562881e4627d/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c7931673336666d30697630626a32306c3830366a3074362e6a7067)
 
-- 自己 fork 的 仓库变化， `commit` 数量与 最新日志与原仓库一致
+-   自己 fork 的 仓库变化， `commit` 数量与 最新日志与原仓库一致
 
 [![](https://camo.githubusercontent.com/dc877fdcceb543a07bb626aad12eed25ca991036/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c7931673336667472357a306f6a3230776f306e7334316e2e6a7067)](https://camo.githubusercontent.com/dc877fdcceb543a07bb626aad12eed25ca991036/687474703a2f2f7777312e73696e61696d672e636e2f6c617267652f64663535316561356c7931673336667472357a306f6a3230776f306e7334316e2e6a7067)
 
@@ -93,5 +93,6 @@ $ git push origin master
 
 ## 参考
 
-- [Git 远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html) ， by 阮一峰
-- [Syncing Your GitHub Fork](https://www.youtube.com/watch?v=-zvHQXnBO6c) , by [Data School](https://www.youtube.com/channel/UCnVzApLJE2ljPZSeQylSEyg)
+-   [Git 远程操作详解](http://www.ruanyifeng.com/blog/2014/06/git_remote.html) ， by 阮一峰
+-   [Syncing Your GitHub Fork](https://www.youtube.com/watch?v=-zvHQXnBO6c) , by [Data School](https://www.youtube.com/channel/UCnVzApLJE2ljPZSeQylSEyg)
+-   [Github进行fork后如何与原仓库同步](https://github.com/selfteaching/the-craft-of-selfteaching/issues/67)

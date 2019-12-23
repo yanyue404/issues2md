@@ -1,7 +1,7 @@
 ## 前言
 
-- [ruanyf/jstraining](https://github.com/ruanyf/jstraining)
-  - [demos - 课堂练习的操作指导](https://github.com/ruanyf/jstraining/tree/master/demos)
+-   [ruanyf/jstraining](https://github.com/ruanyf/jstraining)
+    -   [demos - 课堂练习的操作指导](https://github.com/ruanyf/jstraining/tree/master/demos)
 
 ## 目录
 
@@ -50,14 +50,14 @@
 
 Ajax 技术诞生，改变了一切。
 
-20 世纪 90 年代，几乎所有的网站都由 HTML 页面实现，服务器处理每一个用户请求都需要重新加载网页。
+20世纪90年代，几乎所有的网站都由HTML页面实现，服务器处理每一个用户请求都需要重新加载网页。
 
 Ajax 的最大优点，就是能在不更新整个页面的前提下异步维护数据。
 
-许多事件使得 Ajax 被大众所接受：
+许多事件使得Ajax被大众所接受：
 
-- 2004 年：Gmail
-- 2005 年：Google 地图
+-   2004年：Gmail
+-   2005年：Google 地图
 
 前端不再是后端的模板，可以独立得到各种数据。
 
@@ -65,21 +65,21 @@ Ajax 的最大优点，就是能在不更新整个页面的前提下异步维护
 
 Ajax 技术促成了 Web 2.0 的诞生。
 
-- Web 1.0：静态网页，纯内容展示
-- Web 2.0：动态网页，富交互，前端数据处理
+-   Web 1.0：静态网页，纯内容展示
+-   Web 2.0：动态网页，富交互，前端数据处理
 
 从那时起，前端变得复杂了，对前端工程师的要求越来越高。
 
 产品例子:
 
-- 全球： 维基百科, Twitter, Facebook, YouTube
-- 中国： 豆瓣网，百度贴吧, 新浪微博,优酷网, QQ 群
+-   全球： 维基百科, Twitter, Facebook, YouTube
+-   中国： 豆瓣网，百度贴吧, 新浪微博,优酷网, QQ群
 
 ### 前后端分离
 
-- Ajax -> 前端应用兴起
-- 智能手机 -> 多终端支持  
-  这两个原因，导致前端开发方式发生根本的变化。
+-   Ajax -> 前端应用兴起
+-   智能手机 -> 多终端支持  
+    这两个原因，导致前端开发方式发生根本的变化。
 
 前端不再是后端 MVC 中的 V，而是单独的一层。
 
@@ -93,10 +93,10 @@ Ajax 技术促成了 Web 2.0 的诞生。
 
 #### 前端 MVC 框架
 
-前端通过  Ajax  得到数据，因此也有了处理数据的需求。
+前端通过 Ajax 得到数据，因此也有了处理数据的需求。
 
 前端代码变得也需要保存数据、处理数据、生成视图，这导致了前  
-端  MVC  框架的诞生
+端 MVC 框架的诞生
 
 **Backbone.js**
 
@@ -104,15 +104,15 @@ Ajax 技术促成了 Web 2.0 的诞生。
 
 Backbone 将前端代码分成两个基本部分。
 
-- Model：管理数据
-- View：数据的展现
+-   Model：管理数据
+-   View：数据的展现
 
 [![img](https://github.com/ruanyf/jstraining/raw/master/docs/images/backbone-model-view.png)](https://github.com/ruanyf/jstraining/raw/master/docs/images/backbone-model-view.png)
 
 Backbone 只有 M 和 V，没有 C。因为，前端 Controller 与后端不同。
 
-- 不需要，也不应该处理业务逻辑
-- 只需要处理 UI 逻辑，响应用户的一举一动
+-   不需要，也不应该处理业务逻辑
+-   只需要处理 UI 逻辑，响应用户的一举一动
 
 所以，前端 Controller 相对比较简单。Backbone 没有 C，只用事件来处理 UI 逻辑。
 
@@ -120,9 +120,9 @@ Backbone 只有 M 和 V，没有 C。因为，前端 Controller 与后端不同�
 
 另一些框架提出 MVVM 模式，用 View Model 代替 Controller。
 
-- Model
-- View
-- View-Model：简化的 Controller，唯一作用就是为 View 提供处理好的数据，不含其他逻辑。
+-   Model
+-   View
+-   View-Model：简化的 Controller，唯一作用就是为 View 提供处理好的数据，不含其他逻辑。
 
 本质：view 绑定 view-model，视图与数据模型强耦合。数据的变化实时反映在 view 上，不需要手动处理。
 
@@ -144,44 +144,44 @@ Vue.js 是现在很热门的一种前端 MVVM 框架。
 
 > SPA = Single-page application
 
-单页面应用，就是只有一张 Web 页面的应用，是加载单个 HTML 页面并在用户与应用程序交互时动态更新该页面的 Web 应用程序。
+单页面应用，就是只有一张Web页面的应用，是加载单个HTML 页面并在用户与应用程序交互时动态更新该页面的Web应用程序。
 
-2010 年后，前端工程师从开发页面，变成了开发“前端应用”（跑在浏览器里面的应用程序）。
+2010年后，前端工程师从开发页面，变成了开发“前端应用”（跑在浏览器里面的应用程序）。
 
 ### Node
 
-2009 年，Node 项目诞生，它是服务器上的 JavaScript 运行环境。
+2009年，Node 项目诞生，它是服务器上的 JavaScript 运行环境。
 
 Node = JavaScript + 操作系统 API
 
 **意义**
 
-- JavaScript 成为服务器脚本语言，与 Python 和 Ruby 一样
-- JavaScript 成为唯一的浏览器和服务器都支持的语言
-- 前端工程师可以编写后端程序了
+-   JavaScript 成为服务器脚本语言，与 Python 和 Ruby 一样
+-   JavaScript 成为唯一的浏览器和服务器都支持的语言
+-   前端工程师可以编写后端程序了
 
 ### 前端开发模式的根本改变
 
-- Node 环境下开发
-- 大量使用服务器端工具
-- 引入持续集成等软件工程的标准流程
-- 开发完成后，编译成浏览器可以运行的脚本，放上 CDN
+-   Node 环境下开发
+-   大量使用服务器端工具
+-   引入持续集成等软件工程的标准流程
+-   开发完成后，编译成浏览器可以运行的脚本，放上 CDN
 
 ### 全栈工程师
 
 前端工程师正在转变为全栈工程师
 
-- 一个人负责开发前端和后端
-- 从数据库到 UI 的所有开发
+-   一个人负责开发前端和后端
+-   从数据库到 UI 的所有开发
 
 **全栈技能**
 
 怎样才能称为全栈工程师？
 
-- 传统前端技能：HTML、JavaScript、CSS
-- 一门后端语言
-- 移动端开发：iOS / Android / HTML5
-- 其他技能：数据库、HTTP 等等
+-   传统前端技能：HTML、JavaScript、CSS
+-   一门后端语言
+-   移动端开发：iOS / Android / HTML5
+-   其他技能：数据库、HTTP 等等
 
 ### 软件行业的发展动力
 
@@ -189,58 +189,58 @@ Node = JavaScript + 操作系统 API
 
 动力：更加产业化、大规模地生产软件
 
-- 效率更高
-- 成本更低
-- 通用性好、能够快速产出的技术最终会赢，单个程序员的生产力要求越来越高。
+-   效率更高
+-   成本更低
+-   通用性好、能够快速产出的技术最终会赢，单个程序员的生产力要求越来越高。
 
 **H5 就是一个最好的例子**
 
 为什么 H5 技术会赢得移动端？
 
-- 开发速度快：Native 需要重新编译才能看到结果，H5 是即时输出
-- 开发成本低：Native 需要两个开发团队，H5 只要一个
-- 快速发布：安卓 Native 新版本需要 24 小时，iOS 需要 3 ～ 4 天，H5 可以随时更新
+-   开发速度快：Native 需要重新编译才能看到结果，H5 是即时输出
+-   开发成本低：Native 需要两个开发团队，H5 只要一个
+-   快速发布：安卓 Native 新版本需要24小时，iOS 需要 3 ～ 4 天，H5 可以随时更新
 
 ### 前端开发的未来
 
 **软件的特点**
 
-- 联网
-- 高并发
-- 分布式
-- 跨终端
+-   联网
+-   高并发
+-   分布式
+-   跨终端
 
 现在基于 Web 的前端技术，将演变为未来所有软件的通用的 GUI（图形使用界面） 解决方案。
 
 **只有两种软件工程师**
 
-- 端工程师
-  - 手机端
-  - PC 端
-  - TV 端
-  - VR 端
-  - ……
-- 云工程师
+-   端工程师
+    -   手机端
+    -   PC 端
+    -   TV 端
+    -   VR 端
+    -   ……
+-   云工程师
 
 ## React 技术栈
 
-Facebook  公司 2013 年推出，现在最好的社区支持和生态圈，大量的第三方工具
+Facebook 公司2013年推出，现在最好的社区支持和生态圈，大量的第三方工具
 
-**React  的优点**
+**React 的优点**
 
-- 组件模式：代码复用和团队分工
-- 虚拟  DOM：性能优势
-- 移动端支持：跨终端
+-   组件模式：代码复用和团队分工
+-   虚拟 DOM：性能优势
+-   移动端支持：跨终端
 
 ### React 的基本用法
 
-- JSX 语法与 Babel  转码器
-- React 组件语法
-- React 组件的参数（使用 Props 获取）
-- React 组件的状态（使用`setState`更新受控组件的内部状态）
-- React 组件实战（学写简单的 React 组件）
-- React 组件的生命周期（Ajax 使用）
-- React  组件库（了解使用 [React­Bootstrap](https://react%C2%ADbootstrap.github.io/)，[ReCharts](http://recharts.org/))）
+-   JSX语法与Babel 转码器
+-   React 组件语法
+-   React 组件的参数（使用 Props 获取）
+-   React 组件的状态（使用`setState`更新受控组件的内部状态）
+-   React 组件实战（学写简单的 React 组件）
+-   React 组件的生命周期（Ajax使用）
+-   React 组件库（了解使用 [React­Bootstrap](https://react%C2%ADbootstrap.github.io/)，[ReCharts](http://recharts.org/))）
 
 ### React 的核心思想
 
@@ -248,7 +248,7 @@ View 是 State 的输出。
 
 `view = f(state)`
 
-上式中，f 表示函数关系。只要 State 发生变化，View 也要随之变化。
+上式中，f表示函数关系。只要 State 发生变化，View 也要随之变化。
 
 React 的本质是将图形界面（GUI）函数化。
 
@@ -258,10 +258,10 @@ React 本身只是一个 DOM 的抽象层，使用组件构建虚拟 DOM。
 
 如果开发大应用，还需要解决两个问题。
 
-- 架构：大型应用程序应该如何组织代码？
-- 通信：组件之间如何通信？
+-   架构：大型应用程序应该如何组织代码？
+-   通信：组件之间如何通信？
 
-### React  应用的架构
+### React 应用的架构
 
 React 架构的最重要作用：管理 Store 与 View 之间的关系。
 
@@ -271,28 +271,28 @@ Facebook 提出 Flux 架构的概念，被认为是 React 应用的标准架构�
 
 最大特点：数据单向流动。与 MVVM 的数据双向绑定，形成鲜明对比。
 
-目前最流行的两个  React  架构
+目前最流行的两个 React 架构
 
-- MobX：采用观察者模式，自动响应数据变化，state 是可变对象，适合中小型项目
-- Redux：Flux  的函数式实现，state 是不可变对象，适合大型项目
+-   MobX：采用观察者模式，自动响应数据变化，state 是可变对象，适合中小型项目
+-   Redux：Flux 的函数式实现，state 是不可变对象，适合大型项目
 
 #### MobX 架构
 
-MobX  的核心概念，就是组件是观察者，一旦  Store  有变化，会立  
+MobX 的核心概念，就是组件是观察者，一旦  Store  有变化，会立  
 刻被组件观察到，从而引发重新渲染。
 
 ```js
 @observer
-class App extends React.Component {
-  render() {
-    // ...
-  }
+class App extends React.Component {
+  render() {
+    // ...
+  }
 }
 ```
 
-UI  层是观察者，Store  是被观察者。
+UI 层是观察者，Store 是被观察者。
 
-Store  所有的属性，分成两大类：直接被观察的属性和自动计算出来  
+Store 所有的属性，分成两大类：直接被观察的属性和自动计算出来  
 的属性。
 
 ```js
@@ -304,15 +304,15 @@ class Store {
 }
 ```
 
-UI  会观察到  Store  的变化，自动重新渲染。
+UI 会观察到 Store 的变化，自动重新渲染。
 
 #### Redux 架构
 
 Redux 的核心概念
 
-- 所有的状态存放在 Store。组件每次重新渲染，都必须由状态变化引起。  
-  用户在 UI 上发出 action。
-- reducer 函数接收 action，然后根据当前的 state，计算出新的 state。
+-   所有的状态存放在Store。组件每次重新渲染，都必须由状态变化引起。  
+    用户在 UI 上发出action。
+-   reducer函数接收action，然后根据当前的state，计算出新的state。
 
 [![img](https://github.com/ruanyf/jstraining/raw/master/docs/images/redux-architecture.png)](https://github.com/ruanyf/jstraining/raw/master/docs/images/redux-architecture.png)
 
@@ -322,9 +322,9 @@ Node 是服务器的 JavaScript 运行环境，提供 API 与操作系统互动�
 
 主要用途：
 
-- 开发前端应用
-- 快速搭建服务
-- 架设网站
+-   开发前端应用
+-   快速搭建服务
+-   架设网站
 
 ### Node 的基本用法
 
@@ -336,15 +336,15 @@ Node 是服务器的 JavaScript 运行环境，提供 API 与操作系统互动�
 
 它是 Node 的模块管理器，开发 Node 项目的必备工具。
 
-**Node  开发前端脚本的好处**
+**Node 开发前端脚本的好处**
 
-1.  模块机制
+1. 模块机制
 
-2.  版本管理
+2. 版本管理
 
-3.  对外发布
+3. 对外发布
 
-4.  持续集成的标准开发流程
+4. 持续集成的标准开发流程
 
 ### Restful API
 
@@ -352,27 +352,27 @@ REST 是浏览器与服务器通信方式的一种设计风格。
 
 它的全称是“REpresentational State Transfer”，中文意为“表现层状态转换”。
 
-- Resource：资源
-- Representation：表现层
-- State：状态
-- Transfer：转换
+-   Resource：资源
+-   Representation：表现层
+-   State：状态
+-   Transfer：转换
 
 **核心概念**
 
-- 互联网上所有可以访问的内容，都是资源。
-- 服务器保存资源，客户端请求资源。
-- 同一个资源，有多种表现形式。
-- 协议本身不带有状态，通信时客户端必须通过参数，表示请求不同状态的资源。
-- 状态转换通过 HTTP 动词表示。
+-   互联网上所有可以访问的内容，都是资源。
+-   服务器保存资源，客户端请求资源。
+-   同一个资源，有多种表现形式。
+-   协议本身不带有状态，通信时客户端必须通过参数，表示请求不同状态的资源。
+-   状态转换通过HTTP动词表示。
 
 **HTTP 动词**
 
-| 操作   | SQL 方法 | HTTP 动词 |
-| ------ | -------- | --------- |
-| CREATE | INSERT   | POST      |
-| READ   | SELECT   | GET       |
-| UPDATE | UPDATE   | PUT/PATCH |
-| DELETE | DELETE   | DELETE    |
+| 操作 | SQL方法 | HTTP动词 |
+| --- | --- | --- |
+| CREATE | INSERT | POST |
+| READ | SELECT | GET |
+| UPDATE | UPDATE | PUT/PATCH |
+| DELETE | DELETE | DELETE |
 
 ```shell
 POST /v1/stores
@@ -386,8 +386,8 @@ DELETE /v1/stores/1234
 **动态端口设定**
 
 ```js
-var express = require('express');
-var app = express();
+var express    = require('express');
+var app        = express();
 var port = process.env.PORT || 8080;
 
 var router = express.Router();
@@ -401,11 +401,11 @@ app.listen(port);
 console.log('Magic happens on port ' + port);
 ```
 
-上面代码指定了外部访问的端口，如果环境变量没有指定，则端口默认为 8080。最后两行是启动应用，并输出一行提示文字。
+上面代码指定了外部访问的端口，如果环境变量没有指定，则端口默认为8080。最后两行是启动应用，并输出一行提示文字。
 
 通过环境变量，自定义启动端口。
 
-假定我们指定必须启动在 7070 端口，命令行可以这样操作。
+假定我们指定必须启动在7070端口，命令行可以这样操作。
 
 ```shell
 # Linux & Mac
@@ -425,8 +425,8 @@ $ node app1.js
 1.  路由路径传参，浏览器访问`localhost:8080/home/张三`，输出`Hello 张三`。
 
 ```js
-router.get('/:name', function(req, res) {
-  res.send('<h1>Hello ' + req.params.name + '</h1>');
+router.get("/:name", function(req, res) {
+  res.send("<h1>Hello " + req.params.name + "</h1>");
 });
 ```
 
@@ -436,9 +436,9 @@ router.get('/:name', function(req, res) {
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 
-router.post('/', function(req, res) {
+router.post("/", function(req, res) {
   var name = req.body.name;
-  res.json({ message: 'Hello ' + name });
+  res.json({ message: "Hello " + name });
 });
 ```
 
@@ -455,8 +455,8 @@ name=Alice
 3.  浏览器地址添加 query 参数,访问 `http://localhost:8080/home?name=Rainbow`返回 `Hello Rainbow`
 
 ```js
-router.get('/', function(req, res) {
-  res.send('<h1>Hello ' + req.query.name + '</h1>');
+router.get("/", function(req, res) {
+  res.send("<h1>Hello " + req.query.name + "</h1>");
 });
 ```
 
@@ -483,33 +483,33 @@ Continuous integration（简称 CI）
 
 优点
 
-- 快速发现错误
-- 防止分支大幅偏离主干
-- 让产品可以快速迭代，同时还能保持高质量
+-   快速发现错误
+-   防止分支大幅偏离主干
+-   让产品可以快速迭代，同时还能保持高质量
 
 ### 流程
 
 前端开发转移到后端环境，意味着可以适用标准的软件工程流程。
 
-1.  本地开发（developing）
+1. 本地开发（developing）
 
-2.  静态代码检查（linting）
+2. 静态代码检查（linting）
 
-3.  单元测试（testing）
+3. 单元测试（testing）
 
-4.  合并进入主干（merging）
+4. 合并进入主干（merging）
 
-5.  自动构建（building）
+5. 自动构建（building）
 
-6.  自动发布（publishing）
+6. 自动发布（publishing）
 
 ### 静态代码检查工具
 
 ESLint：
 
-- 发现语法错误
-- 发现风格错误
-- 自动纠正错误
+-   发现语法错误
+-   发现风格错误
+-   自动纠正错误
 
 安装相关模块，设置代码检查的风格, 这里使用的是 Airbnb 公司的规则
 
@@ -530,20 +530,20 @@ npm install eslint eslint-plugin-import eslint-config-airbnb-base --save-dev
 ```json
 {
   // ...
-  "scripts": {
+  "scripts" : {
     "lint": "eslint **/*.js",
     "lint-html": "eslint **/*.js -f html -o ./reports/lint-results.html",
     "lint-fix": "eslint --fix **/*.js"
-  }
+  },
   // ...
 }
 ```
 
 上面代码新定义了三个脚本，运行方式 `npm run lint | yarn lint`, 它们的作用如下:
 
-- `lint`：检查所有 js 文件的代码
-- `lint-html`：将检查结果写入一个网页文件./reports/lint-results.html
-- `lint-fix`：自动修正某些不规范的代码
+-   `lint`：检查所有js文件的代码
+-   `lint-html`：将检查结果写入一个网页文件./reports/lint-results.html
+-   `lint-fix`：自动修正某些不规范的代码
 
 ### 单元测试
 
@@ -551,47 +551,47 @@ npm install eslint eslint-plugin-import eslint-config-airbnb-base --save-dev
 
 Web 应用越来越复杂，意味着更可能出错。测试是提高代码质量、降低错误的最好方法之一。
 
-- 测试可以确保得到预期结果。
-- 加快开发速度。
-- 方便维护。
-- 提供用法的文档。
-- 对于长期维护的项目，测试可以减少投入时间，减轻维护难度。
+-   测试可以确保得到预期结果。
+-   加快开发速度。
+-   方便维护。
+-   提供用法的文档。
+-   对于长期维护的项目，测试可以减少投入时间，减轻维护难度。
 
 **测试的类型**
 
-- 单元测试（unit testing）
-- 功能测试（feature testing）
-- 集成测试（integration testing）
-- 端对端测试 (End-to-End testing）
+-   单元测试（unit testing）
+-   功能测试（feature testing）
+-   集成测试（integration testing）
+-   端对端测试 (End-to-End testing）
 
 **使用 Mocha 进行单元测试**
 
 > test: 1 + 1 = 2
 
-- [mocha-demo](https://github.com/ruanyf/jstraining/tree/master/demos/mocha-demo)
+-   [mocha-demo](https://github.com/ruanyf/jstraining/tree/master/demos/mocha-demo)
 
 **使用 Nightmare 进行功能测试**
 
-> test: 首先打开网页，点击 h1 元素，然后等待 1 秒钟，判断获取 h1 元素的文本内容与期望值是否一致。
+> test: 首先打开网页，点击h1元素，然后等待 1 秒钟，判断获取h1元素的文本内容与期望值是否一致。
 
-- [nightmare-demo](https://github.com/ruanyf/jstraining/tree/master/demos/nightmare-demo)
+-   [nightmare-demo](https://github.com/ruanyf/jstraining/tree/master/demos/nightmare-demo)
 
 ```js
 it('点击后标题改变', function(done) {
-  var nightmare = Nightmare({ show: true });
-  nightmare
-    .goto('http://127.0.0.1:8080/index.html')
-    .click('h1')
-    .wait(1000)
-    .evaluate(function() {
-      return document.querySelector('h1').textContent;
-    })
-    .end()
-    .then(function(text) {
-      expect(text).to.equal('Hello Clicked');
-      done();
-    });
-});
+    var nightmare = Nightmare({ show: true });
+    nightmare
+      .goto('http://127.0.0.1:8080/index.html')
+      .click('h1')
+      .wait(1000)
+      .evaluate(function () {
+        return document.querySelector('h1').textContent;
+      })
+      .end()
+      .then(function(text) {
+        expect(text).to.equal('Hello Clicked');
+        done();
+      })
+  });
 ```
 
 ### 持续集成服务平台
@@ -602,17 +602,17 @@ Travis CI 提供持续集成服务。它可以根据你提供的脚本，自动�
 
 添加`.travis.yml`配置文件,构建时默认依次执行以下九个脚本。
 
-- `before_install`
-- `install`
-- `before_script`
-- `script`
-- `after_success` 或者 `after_failure`
-- `after_script`
-- `before_deploy`（可选）
-- `deploy`（可选）
-- `after_deploy`（可选）
+-   `before_install`
+-   `install`
+-   `before_script`
+-   `script`
+-   `after_success` 或者 `after_failure`
+-   `after_script`
+-   `before_deploy`（可选）
+-   `deploy`（可选）
+-   `after_deploy`（可选）
 
-在 before_install、before_script 之前，或者 after_script 之后，都可以运行自定义命令，详细资料可参考官方文档：Job Lifecycle
+在 before\_install、before\_script之前，或者after\_script之后，都可以运行自定义命令，详细资料可参考官方文档：Job Lifecycle
 
 完整的配置文件
 
@@ -646,6 +646,6 @@ branches:
 
 #### 拓展链接
 
-- [阮一峰 - 持续集成是什么？](http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html)
-- [前端工程——基础篇](https://github.com/fouber/blog/issues/10)
-- [使用 Travis CI 实现 Hexo 博客自动部署](https://xirikm.net/2019/826-2)
+-   [阮一峰 - 持续集成是什么？](http://www.ruanyifeng.com/blog/2015/09/continuous-integration.html)
+-   [前端工程——基础篇](https://github.com/fouber/blog/issues/10)
+-   [使用 Travis CI 实现 Hexo 博客自动部署](https://xirikm.net/2019/826-2)

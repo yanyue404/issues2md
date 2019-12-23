@@ -12,7 +12,7 @@
 
 ```js
 function Person() {}
-Person.prototype.name = 'Rainbow';
+Person.prototype.name = "Rainbow";
 var person1 = new Person();
 console.log(person1.name);
 ```
@@ -30,11 +30,11 @@ function _new(/* 构造函数 */ constructor, /* 构造函数参数 */ params) {
   // 执行构造函数
   var result = constructor.apply(context, args);
   // 如果返回结果是对象，就直接返回，否则返回 context 对象
-  return typeof result === 'object' && result != null ? result : context;
+  return typeof result === "object" && result != null ? result : context;
 }
 
 // 实例
-var actor = _new(Person, '张三', 28);
+var actor = _new(Person, "张三", 28);
 ```
 
 ### 从构造函数到原型对象
@@ -105,8 +105,8 @@ console.dir(Person.rain); // true
 
 ```js
 function Father() {
-  this.name = 'father';
-  this.firend = ['aaa,bbb'];
+  this.name = "father";
+  this.firend = ["aaa,bbb"];
 }
 function Son() {}
 
@@ -120,13 +120,13 @@ var s2 = new Son();
 console.log(s1.name); //father
 console.log(s2.name); //father
 
-s1.name = 'son'; //实际上已经在构造函数上定义了这个name属性
+s1.name = "son"; //实际上已经在构造函数上定义了这个name属性
 console.log(s1.name); //son
 console.log(s2.name); //father
 
 console.log(s1.firend); //['aaa,bbb']
 console.log(s2.firend); //['aaa,bbb']
-s1.firend.push('ccc,ddd');
+s1.firend.push("ccc,ddd");
 console.log(s1.firend); //['aaa,bbb,ccc,ddd']
 console.log(s2.firend); //['aaa,bbb,ccc,ddd'] 引用类型的原型属性会被实例共享
 ```
@@ -158,18 +158,18 @@ Father.prototype.getName = function() {
 
 function Son(name) {
   // 注意： 为了确保 Father 构造函数不会重写 Son 构造函数的属性，请将调用 Father 构造函数的代码放在 Son 中定义的属性的前面。
-  Father.call(this, name, ['aaa', 'bbb']);
+  Father.call(this, name, ["aaa", "bbb"]);
 
   this.age = 22;
 }
 
-var s1 = new Son('son1');
-var s2 = new Son('son2');
+var s1 = new Son("son1");
+var s2 = new Son("son2");
 
 console.log(s1.name); // son1
 console.log(s2.name); // son2
 
-s1.friends.push('ccc', 'ddd');
+s1.friends.push("ccc", "ddd");
 console.log(s1.friends); // ["aaa", "bbb", "ccc", "ddd"]
 console.log(s2.friends); // ["aaa", "bbb"]
 
@@ -195,7 +195,7 @@ s2.getName(); // TypeError: s2.getName is not a function
 ```js
 function SuperType(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 SuperType.prototype.sayName = function() {
   console.log(this.name);
@@ -212,9 +212,9 @@ SubType.prototype.sayAge = function() {
   console.log(this.age);
 };
 
-var instancel1 = new SubType('Nicholas', 29);
-var instancel2 = new SubType('yue', 25);
-instancel1.colors.push('black');
+var instancel1 = new SubType("Nicholas", 29);
+var instancel2 = new SubType("yue", 25);
+instancel1.colors.push("black");
 console.log(instancel1.colors); // ["red", "blue", "green", "black"]
 console.log(instancel2.colors); // ["red", "blue", "green"] 实例独立
 
@@ -238,17 +238,17 @@ function object(o) {
 }
 
 var person = {
-  name: 'Nicholas',
-  friends: ['Shelby', 'Court', 'Van'],
+  name: "Nicholas",
+  friends: ["Shelby", "Court", "Van"]
 };
 var anotherPerson = Object.create(person);
 var anotherPerson = object(person);
-anotherPerson.name = 'Greg';
-anotherPerson.friends.push('Rob');
+anotherPerson.name = "Greg";
+anotherPerson.friends.push("Rob");
 
 var yetAnotherPerson = object(person);
-yetAnotherPerson.name = 'Linda';
-yetAnotherPerson.friends.push('Barbie');
+yetAnotherPerson.name = "Linda";
+yetAnotherPerson.friends.push("Barbie");
 
 alert(person.friends); //"Shelby,Court,Van,Rob,Barbie"
 ```
@@ -259,12 +259,12 @@ alert(person.friends); //"Shelby,Court,Van,Rob,Barbie"
 
 ```js
 var anotherPerson1 = Object.create(person);
-anotherPerson1.name = 'Greg';
+anotherPerson1.name = "Greg";
 
 var anotherPerson2 = Object.create(person, {
   name: {
-    value: 'Greg',
-  },
+    value: "Greg"
+  }
 });
 ```
 
@@ -281,15 +281,15 @@ function createAnother(original) {
   var clone = Object(original); //调用函数创建一个新对象
   clone.sayHi = function() {
     // 方法
-    alert('hi');
+    alert("hi");
   };
   return clone;
 }
 
 var person = {
   //属性
-  name: 'Nicholas',
-  friends: ['Shelby', 'Court', 'Van'],
+  name: "Nicholas",
+  friends: ["Shelby", "Court", "Van"]
 };
 
 var anotherPerson = createAnother(person);
@@ -321,7 +321,7 @@ function inheritPrototype(subType, superType) {
 
 function SuperType(name) {
   this.name = name;
-  this.colors = ['red', 'blue', 'green'];
+  this.colors = ["red", "blue", "green"];
 }
 
 SuperType.prototype.sayName = function() {
@@ -340,13 +340,13 @@ SubType.prototype.sayAge = function() {
   alert(this.age);
 };
 
-var instance1 = new SubType('Nicholas', 29);
-instance1.colors.push('black');
+var instance1 = new SubType("Nicholas", 29);
+instance1.colors.push("black");
 alert(instance1.colors); //"red,blue,green,black"
 instance1.sayName(); //"Nicholas";
 instance1.sayAge(); //29
 
-var instance2 = new SubType('Greg', 27);
+var instance2 = new SubType("Greg", 27);
 alert(instance2.colors); //"red,blue,green"
 instance2.sayName(); //"Greg";
 instance2.sayAge(); //27
@@ -354,7 +354,7 @@ instance2.sayAge(); //27
 
 ### 参考文章
 
-- [MDN - 继承与原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
-- [原型继承 - 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312/1023021997355072)
-- [JavaScript 深入之从原型到原型链 —— 冴羽](https://github.com/mqyqingfeng/Blog/issues/2)
-- [从**proto**和 prototype 来深入理解 JS 对象和原型链](https://github.com/creeperyang/blog/issues/9)
+-   [MDN - 继承与原型链](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain)
+-   [原型继承 - 廖雪峰](https://www.liaoxuefeng.com/wiki/1022910821149312/1023021997355072)
+-   [JavaScript 深入之从原型到原型链 —— 冴羽](https://github.com/mqyqingfeng/Blog/issues/2)
+-   [从**proto**和 prototype 来深入理解 JS 对象和原型链](https://github.com/creeperyang/blog/issues/9)

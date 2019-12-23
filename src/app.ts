@@ -167,7 +167,7 @@ function singleMarkdownFileExport(name: any, issuesID: any, totalCount: any) {
       const content = turndownService.turndown($('table').html());
       // 判断文件夹路径是否存在
       if (fs.existsSync(fileDirectory)) {
-        fs.writeFile(fileDirectory + fileName + '.md', content, err => {
+        fs.writeFile(fileDirectory + fileName + '.md', content, (err: any) => {
           if (err) throw err;
           console.log(
             'Markdown - ' +

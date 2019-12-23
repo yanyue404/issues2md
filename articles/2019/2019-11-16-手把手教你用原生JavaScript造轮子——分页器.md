@@ -2,12 +2,12 @@
 
 学习制造可以在生产环境使用的轮子，Start ！
 
-- csdoker
-  - [原文](https://juejin.im/post/5b592635e51d4533d2043e15)
-  - [source code](https://github.com/csdoker/csdwheels) / [pagination](https://github.com/csdoker/csdwheels/blob/master/src/es5/pagination/pagination.js)
-  - [Demo-pagination](https://csdoker.github.io/csdemos/pagination/)
-- [FrankFang](https://github.com/FrankFang/)
-  - [source code](https://github.com/FrankFang/wheels/blob/master/lib/pager/index.js) / [Demo](https://fangyinghang.com/wheels/demos/pager.html)
+-   csdoker
+    -   [原文](https://juejin.im/post/5b592635e51d4533d2043e15)
+    -   [source code](https://github.com/csdoker/csdwheels) / [pagination](https://github.com/csdoker/csdwheels/blob/master/src/es5/pagination/pagination.js)
+    -   [Demo-pagination](https://csdoker.github.io/csdemos/pagination/)
+-   [FrankFang](https://github.com/FrankFang/)
+    -   [source code](https://github.com/FrankFang/wheels/blob/master/lib/pager/index.js) / [Demo](https://fangyinghang.com/wheels/demos/pager.html)
 
 ## 插件设计分析
 
@@ -24,15 +24,15 @@
 
 ```js
 (function(root, factory) {
-  if (typeof define === 'function' && define.amd) {
+  if (typeof define === "function" && define.amd) {
     define([], factory);
-  } else if (typeof module === 'object' && module.exports) {
+  } else if (typeof module === "object" && module.exports) {
     module.exports = factory();
   } else {
     root.Plugin = factory();
   }
-})(typeof self !== 'undefined' ? self : this, function() {
-  'use strict';
+})(typeof self !== "undefined" ? self : this, function() {
+  "use strict";
 
   // tool
   function extend(o, n, override) {
@@ -59,7 +59,7 @@
     options: {},
     init: function(selector, userOptions) {
       extend(this.options, userOptions, true);
-    },
+    }
   };
 
   return Plugin;
@@ -94,21 +94,21 @@ for (var i = 1; i <= total; i++) {
   console.log(showPages(i, total, 2));
 }
 function showPages(page, total, show) {
-  var str = '';
+  var str = "";
   // 当前页前无空余页数，不需要位移 1，2 ，3，4，5
   if (page < show + 1) {
     for (var i = 1; i <= show * 2 + 1; i++) {
-      str = str + ' ' + i;
+      str = str + " " + i;
     }
     // 当前页后无空余页数，不需要位移 26 27 28 29 30
   } else if (page > total - show) {
     for (var i = total - show * 2; i <= total; i++) {
-      str = str + ' ' + i;
+      str = str + " " + i;
     }
     // 当前页有空余页数，拥有位移
   } else {
     for (var i = page - show; i <= page + show; i++) {
-      str = str + ' ' + i;
+      str = str + " " + i;
     }
   }
   return str.trim();
@@ -137,7 +137,7 @@ var Pagination = function(selector, pageOption) {
     curr: 1, // 当前页码
     pageShow: 2, // 当前页前后两边可显示的页码个数（选填，默认为2）
     ellipsis: true, // 是否显示省略号
-    hash: false,
+    hash: false
   };
   // 合并配置
   extend(this.options, pageOption, true);
@@ -156,7 +156,7 @@ var Pagination = function(selector, pageOption) {
     this.options.callback({
       curr: this.pageNumber,
       limit: this.options.limit,
-      isFirst: true,
+      isFirst: true
     });
   // 改变页数并触发事件
   this.changePage();
@@ -164,7 +164,7 @@ var Pagination = function(selector, pageOption) {
 
 Pagination.prototype = {
   constructor: Pagination,
-  changePage: function() {},
+  changePage: function() {}
 };
 
 return Pagination;
@@ -174,7 +174,7 @@ return Pagination;
 
 ```js
 // 分页元素ID（必填）
-var selector = '#pagelist';
+var selector = "#pagelist";
 
 // 分页配置
 var pageOption = {
@@ -193,7 +193,7 @@ var pageOption = {
     if (!obj.isFirst) {
       // do something
     }
-  },
+  }
 };
 
 // 初始化分页器
@@ -276,10 +276,10 @@ new Pagination(selector, pageOption);
 
 **核心工具函数**
 
-- `renderDom`,DOM 操作实现 **思路分析**中的`for`循环：
-- `addFragmentAfter`DOM 结构向后插入，向前插入 `addFragmentBefore`
-- `createHtml` 生成单个渲染页码 `html`结构
-  - `<li class="pagination-item"><a href="javascript:;" id="page" class="pagination-link">5</a> </li>`
+-   `renderDom`,DOM 操作实现 **思路分析**中的`for`循环：
+-   `addFragmentAfter`DOM 结构向后插入，向前插入 `addFragmentBefore`
+-   `createHtml` 生成单个渲染页码 `html`结构
+    -   `<li class="pagination-item"><a href="javascript:;" id="page" class="pagination-link">5</a> </li>`
 
 ```js
 renderDom: function(begin, end) {
@@ -339,30 +339,30 @@ createHtml: function(elemDatas) {
 
 ```js
 // webpack.config.js
-const path = require('path');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin'); //每次构建清理dist目录
+const path = require("path");
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+const CleanWebpackPlugin = require("clean-webpack-plugin"); //每次构建清理dist目录
 
 module.exports = {
   // 模式配置
-  mode: 'development',
+  mode: "development",
   // 入口文件
   entry: {
-    pagination: './src/es6/index.js',
+    pagination: "./src/es6/index.js"
   },
   // 出口文件
   output: {
-    path: path.resolve(__dirname, 'dist-es6'),
-    filename: 'csdwheels.min.js',
-    libraryTarget: 'umd',
-    library: 'csdwheels',
+    path: path.resolve(__dirname, "dist-es6"),
+    filename: "csdwheels.min.js",
+    libraryTarget: "umd",
+    library: "csdwheels"
   },
   // 对应的插件
   plugins: [
-    new CleanWebpackPlugin(['dist-es6']),
+    new CleanWebpackPlugin(["dist-es6"]),
     new UglifyJsPlugin({
-      test: /\.js($|\?)/i,
-    }),
+      test: /\.js($|\?)/i
+    })
   ],
   // 开发服务器配置
   devServer: {},
@@ -371,26 +371,26 @@ module.exports = {
     rules: [
       {
         test: /\.js$/,
-        include: path.join(__dirname, 'src/es6'),
+        include: path.join(__dirname, "src/es6"),
         exclude: /node_modules/,
-        use: ['babel-loader'],
+        use: ["babel-loader"]
       },
       {
         test: /\.scss$/,
         use: [
           {
-            loader: 'style-loader',
+            loader: "style-loader"
           },
           {
-            loader: 'css-loader',
+            loader: "css-loader"
           },
           {
-            loader: 'sass-loader',
-          },
-        ],
-      },
-    ],
-  },
+            loader: "sass-loader"
+          }
+        ]
+      }
+    ]
+  }
 };
 ```
 
@@ -400,35 +400,35 @@ module.exports = {
 
 梳理改造过程：
 
-- const、let 替换 var
-- 用 constructor 实现构造函数
-- 箭头函数替换 function
+-   const、let 替换 var
+-   用 constructor 实现构造函数
+-   箭头函数替换 function
 
 ```js
-import '../../../style/pagination/pagination.scss';
+import "../../../style/pagination/pagination.scss";
 
 class Pagination {
   static PAGE_INFOS = [
     {
-      id: 'first',
-      content: '首页',
+      id: "first",
+      content: "首页"
     },
     {
-      id: 'prev',
-      content: '前一页',
+      id: "prev",
+      content: "前一页"
     },
     {
-      id: 'next',
-      content: '后一页',
+      id: "next",
+      content: "后一页"
     },
     {
-      id: 'last',
-      content: '尾页',
+      id: "last",
+      content: "尾页"
     },
     {
-      id: '',
-      content: '...',
-    },
+      id: "",
+      content: "..."
+    }
   ];
 
   constructor(selector, options = {}) {
@@ -437,7 +437,7 @@ class Pagination {
       curr: 1,
       pageShow: 2,
       ellipsis: true,
-      hash: false,
+      hash: false
     };
     Object.assign(this.options, options);
     this.init(selector);
@@ -461,7 +461,7 @@ class Pagination {
       this.options.callback({
         curr: this.pageNumber,
         limit: this.options.limit,
-        isFirst: true,
+        isFirst: true
       });
     // 改变页数并触发事件
     this.changePage();
@@ -482,14 +482,14 @@ class Pager {
       buttonCount: 10,
       currentPage: 1,
       totalPage: 1,
-      pageQuery: '', // 'page'
+      pageQuery: "", // 'page'
       templates: {
-        number: '<span>%page%</span>',
-        prev: '<button class=prev>上一页</button>',
-        next: '<button class=next>下一页</button>',
-        first: '<button class=first>首页</button>',
-        last: '<button class=last>末页</button>',
-      },
+        number: "<span>%page%</span>",
+        prev: "<button class=prev>上一页</button>",
+        next: "<button class=next>下一页</button>",
+        first: "<button class=first>首页</button>",
+        last: "<button class=last>末页</button>"
+      }
     };
     this.options = Object.assign({}, defaultOptions, options);
     this.domRefs = {};
@@ -515,7 +515,7 @@ class Pager {
     this.domRefs.numbers = newNumbers;
   }
   initHtml() {
-    let pager = (this.domRefs.pager = document.createElement('nav'));
+    let pager = (this.domRefs.pager = document.createElement("nav"));
     this.domRefs.next = dom.create(this.options.templates.next);
     this._checkButtons();
     this.domRefs.numbers = this._createNumbers();
@@ -533,7 +533,7 @@ class Pager {
     let end1 = Math.min(start1 + buttonCount - 1, totalPage);
     let end2 = Math.min(
       currentPage + Math.round(buttonCount / 2) - 1,
-      totalPage,
+      totalPage
     );
     let start2 = Math.max(end2 - buttonCount + 1, 1);
     let start = Math.min(start1, start2);
@@ -544,12 +544,12 @@ class Pager {
     for (var i = start; i <= end; i++) {
       let li = dom.create(
         `<li data-page="${i}">${this.options.templates.number.replace(
-          '%page%',
-          i,
-        )}</li>`,
+          "%page%",
+          i
+        )}</li>`
       );
       if (i === currentPage) {
-        li.classList.add('current');
+        li.classList.add("current");
       }
       ol.appendChild(li);
     }
@@ -564,5 +564,5 @@ class Pager {
 
 #### 参考
 
-- [github - umd](https://github.com/umdjs/umd)
-- [如何定义一个高逼格的原生 JS 插件](https://www.jianshu.com/p/e65c246beac1)
+-   [github - umd](https://github.com/umdjs/umd)
+-   [如何定义一个高逼格的原生 JS 插件](https://www.jianshu.com/p/e65c246beac1)

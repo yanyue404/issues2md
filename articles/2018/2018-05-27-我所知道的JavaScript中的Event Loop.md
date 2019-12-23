@@ -8,8 +8,8 @@ javascript 是一门单线程语言
 
 于是任务又分为：
 
-- 同步任务
-- 异步任务
+-   同步任务
+-   异步任务
 
 同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。
 
@@ -51,22 +51,22 @@ console.log(5);
 
 下面是代码的执行分析：
 
-- 第一次事件循环开始
-  - 这段代码作为宏任务，进入主线程
-  - `new Promise` 立即执行 log：1
-  - 遇到 `setTimeout`，注册其回调函数后分发到 宏任务队列
-  - 微任务队列 + `Promise.resolve().then()` 的回调函数
-  - 微任务队列 + `Promise.resolve().then().then()` 的回调函数
-  - log: 5
-  - 开始执行微任务
-    - `Promise.resolve().then()` =》 log:3
-    - `Promise.resolve().then().then()` =》 log:4
-- 第一次事件循环结束，`task queue` 非空
-- 第二次事件循环开始
-  - 执行 宏任务 `setTimeout callback` log:2
-  - 没有微任务
-- 第二次事件循环结束， `task queue` 清空
-- 代码执行完毕
+-   第一次事件循环开始
+    -   这段代码作为宏任务，进入主线程
+    -   `new Promise` 立即执行 log：1
+    -   遇到 `setTimeout`，注册其回调函数后分发到 宏任务队列
+    -   微任务队列 + `Promise.resolve().then()` 的回调函数
+    -   微任务队列 + `Promise.resolve().then().then()` 的回调函数
+    -   log: 5
+    -   开始执行微任务
+        -   `Promise.resolve().then()` =》 log:3
+        -   `Promise.resolve().then().then()` =》 log:4
+-   第一次事件循环结束，`task queue` 非空
+-   第二次事件循环开始
+    -   执行 宏任务 `setTimeout callback` log:2
+    -   没有微任务
+-   第二次事件循环结束， `task queue` 清空
+-   代码执行完毕
 
 ### async/await 函数
 
@@ -88,25 +88,25 @@ console.log(2);
 
 下面是代码的执行分析：
 
-- 第一次事件循环开始
-  - 整段代码作为宏任务，进入主线程
-  - 宏任务队列 + `setTimeout callback`
-  - 立即执行 async main,相当于 new Promise(),紧接着 log: 1,微任务队列 + Promise.then()
-  - log:2
-  - 执行所有微任务 Promise.then() log:3
-- 第一次事件循环结束， `task queue` 非空
-- 第二次事件循环开始
-  - 执行宏任务 `setTimeout callback` log:4
-  - 没有微任务
-- 第二次事件循环结束， `task queue` 为空
-- 代码执行完毕
+-   第一次事件循环开始
+    -   整段代码作为宏任务，进入主线程
+    -   宏任务队列 + `setTimeout callback`
+    -   立即执行 async main,相当于 new Promise(),紧接着 log: 1,微任务队列 + Promise.then()
+    -   log:2
+    -   执行所有微任务 Promise.then() log:3
+-   第一次事件循环结束， `task queue` 非空
+-   第二次事件循环开始
+    -   执行宏任务 `setTimeout callback` log:4
+    -   没有微任务
+-   第二次事件循环结束， `task queue` 为空
+-   代码执行完毕
 
 ## Node.js 的 Event Loop
 
-- 待完善
+-   待完善
 
 ### 参考
 
-- [JavaScript 运行机制详解：再谈 Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
-- [这一次，彻底弄懂 JavaScript 执行机制](https://juejin.im/post/59e85eebf265da430d571f89)
-- [微任务、宏任务与 Event-Loop](https://juejin.im/post/5b73d7a6518825610072b42b)
+-   [JavaScript 运行机制详解：再谈 Event Loop](http://www.ruanyifeng.com/blog/2014/10/event-loop.html)
+-   [这一次，彻底弄懂 JavaScript 执行机制](https://juejin.im/post/59e85eebf265da430d571f89)
+-   [微任务、宏任务与 Event-Loop](https://juejin.im/post/5b73d7a6518825610072b42b)
