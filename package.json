@@ -4,10 +4,15 @@
   "description": "Convert github issues to md files",
   "main": "app.js",
   "scripts": {
-    "prettier": "prettier --write \"./**/*.{js,md,json}\"",
+    "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "watch": "tsc -w",
     "server": "nodemon ./build/app.js",
     "start": "npm run server"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "repository": {
     "type": "git",
@@ -36,7 +41,11 @@
     "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
+    "husky": "^3.1.0",
     "nodemon": "^2.0.1",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
   }
 }

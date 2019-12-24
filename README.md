@@ -1,6 +1,6 @@
-# export-github-issues
+# github-enhance
 
-Export GItHub issues blog as markdown file
+Node crawler for better Github use
 
 ## How to use
 
