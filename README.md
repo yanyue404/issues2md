@@ -1,84 +1,49 @@
 # github-enhance
 
-Node crawler for better Github use
+本项目立足于 node 爬虫技术，实践方向为 GitHub 用户体验的增强
 
-## How to use
+## Install
 
-First, install [nodemon](https://github.com/remy/nodemon) globally.
+First, install [nodemon](https://github.com/remy/nodemon) & [ts-node](https://github.com/TypeStrong/ts-node/) globally.
 
 ```bash
-$ npm i -g nodemon
+$ npm i -g nodemon ts-node
 ```
 
 Then, clone the repo.
 
 ```bash
-$ git clone https://github.com/yanyue404/export-github-issues.git
+$ git clone https://github.com/yanyue404/github-enhance.git
 ```
 
 Install the dependencies.
 
 ```bash
-$ cd export-github-issues
+$ cd github-enhance
 $ npm install
 ```
 
-## Options
+## Usage
 
-The configuration file is [config.json](./config/config.json)
+### 文件导出
 
-```json
-{
-  "github": {
-    "blog": "https://github.com/mqyqingfeng/Blog"
-  },
-  "folder": "test",
-  "year": false
-}
-```
+为使用 GitHub issues 写博客的博主提供 全部导出方案（**markdown** 格式），[使用说明](./docs/github-issues-export.md)
 
-| Option        | Valid values                                                                                  |
-| :------------ | :-------------------------------------------------------------------------------------------- |
-| `github.blog` | address of github repositories with issues                                                    |
-| `folder`      | export to folder                                                                              |
-| `year`        | whether to create new save to year folder (Such as save to : `articles/2019`,`articles/2018`) |
-
-## How to export
-
-Start app :
+### 命令行使用
 
 ```bash
-# Startup project
-$ npm start or npm dev
+# 输出单个 GitHub issues 链接的 markdown 内容
+yarn log:issues [github issues url]
 
-# Started successfully !
-
-# [nodemon] starting `node app.js`
-# Listening on http://localhost:3000!
+# 输出 GitHub blog issues 的文章目录
+yarn log:articles [github blog url]
 ```
 
-Open http://localhost:3000/ , you can see the github issues we will export.
-
-![Snipaste_2019-11-27_20-24-37.png](http://ww1.sinaimg.cn/large/df551ea5ly1g9cvco38c6j21d00qbgp3.jpg)
-
-Open http://localhost:3000/api , this is the api information needed to export issues.
-
-![Snipaste_2019-11-27_20-25-49.png](http://ww1.sinaimg.cn/large/df551ea5ly1g9cvdamsj1j20tz0rd0te.jpg)
-
-Access http://localhost:3000/export ,the markdown file starts to export. Below is the log result printed by the console.
-
-![Snipaste_2019-11-27_20-28-26.png](http://ww1.sinaimg.cn/large/df551ea5ly1g9cve5zcs4j20qq0s8q8f.jpg)
-
-You can beautify the results you get.
-
-```bash
-# Format file
-$ npm prettier
-```
+![](./screenshot/issues.png)
 
 ## Thanks
 
-- [Crawler-for-Github-Trending](https://github.com/ZY2071/Crawler-for-Github-Trending) - 🕷️ A node crawler for github trending. http://zy2071.com/Fun/todayGithub.html
+- [Crawler-for-Github-Trending](https://github.com/ZY2071/Crawler-for-Github-Trending)
 
 ## License
 

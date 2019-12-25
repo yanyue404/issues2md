@@ -1,6 +1,24 @@
-// 博客主页地址
-const blog_url = 'https://github.com/yanyue404/blog';
+import { axios, cheerio } from './index';
+import { Api } from '../src/type';
 
+// 博客主页地址
+let blog_url = 'https://github.com/yanyue404/blog';
+
+// 命令行传参支持
+const npm_argv = JSON.parse(process.env.npm_config_argv);
+if (!(npm_argv && npm_argv.original instanceof Array)) {
+  throw TypeError('npm argv Error'); // 异常的抛出会终止log:issues命令
+}
+if (npm_argv.original[0] === `log:articles`) {
+  if (npm_argv.original[1].indexOf('https://github.com/') !== -1) {
+    // 使用命令行传过来的 blog 地址链接参数
+    blog_url = npm_argv.original[1];
+  } else {
+    throw TypeError(
+      'npm argv Error,请输入一个合理的 GitHub blog 地址，比如: https://github.com/yanyue404/blog',
+    );
+  }
+}
 function getAPI(url: any) {
   return axios
     .get(url + '/issues')
@@ -47,7 +65,7 @@ function getAllPageIssues(fetchUrlsArray: any, callback: any) {
       for (var i = 0; i < res.length; i++) {
         result = result.concat(res[i]);
       }
-      result.sort((x, y) => {
+      result.sort((x: any, y: any) => {
         return Number(y.id) - Number(x.id);
       });
       callback(result);
@@ -95,6 +113,10 @@ function getSimglePageIssuesMessage(fetchUrl: string) {
     });
 }
 
-getAPI(blog_url).then((html: string) => {
-  console.log(html);
+getAPI(blog_url).then((html: Api) => {
+  const blogsLinks = html.blogs.map(v => {
+    return `-[${v.title}](${blog_url}/issues/${v.id})` + `[${v.labels}]`;
+  });
+  // '-[npm&yarn](https://github.com/yanyue404/blog/issues/7)[开发者笔记]'
+  console.log(blogsLinks);
 });

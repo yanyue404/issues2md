@@ -6,6 +6,8 @@
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "watch": "tsc -w",
+    "log:issues": "ts-node ./helpers/issues.ts",
+    "log:articles": "ts-node ./helpers/articles.ts",
     "server": "nodemon ./build/app.js",
     "start": "npm run server"
   },
