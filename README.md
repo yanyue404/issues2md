@@ -39,7 +39,7 @@ yarn log:issues [github issues url]
 yarn log:articles [github blog url]
 ```
 
-![](./screenshot/issues.svg)
+![](./screenshot/issues.png)
 
 ## Thanks
 
