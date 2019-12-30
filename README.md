@@ -34,12 +34,23 @@ $ npm install
 ```bash
 # 输出单个 GitHub issues 链接的 markdown 内容
 yarn log:issues [github issues url]
-
-# 输出 GitHub blog issues 的文章目录
-yarn log:articles [github blog url]
 ```
 
 ![](./screenshot/issues.png)
+
+```bash
+# 导出 GitHub blog issues 的文章json列表, data/articles.json
+yarn export:articles [github blog url]
+```
+
+![](./screenshot/articles.png)
+
+```bash
+# 导出 GitHub blog issues 的文章目录，toc/README.md
+yarn export:toc [github blog url]
+```
+
+![](./screenshot/toc.png)
 
 ## Thanks
 

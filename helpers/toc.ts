@@ -1,5 +1,6 @@
+const fs = require('fs');
 import { axios, cheerio } from './index';
-import { saveData_dev, check_npm_argv } from '../src/utils';
+import { formatMarkdown, check_npm_argv } from '../src/utils';
 import { Api } from '../src/type';
 
 // 博客主页地址
@@ -7,7 +8,7 @@ let blog_url = 'https://github.com/yanyue404/blog';
 
 // 命令行传参校验
 check_npm_argv(
-  'export:articles',
+  'export:toc',
   blog_url,
   'npm argv Error,请输入一个合理的 GitHub repositories 地址，比如: https://github.com/yanyue404/blog',
 );
@@ -119,6 +120,30 @@ getAPI(blog_url).then((html: Api) => {
       articles[label].push(`[${v.title}](${blog_url}/issues/${v.id})`);
     }
   });
+  // '-[npm&yarn](https://github.com/yanyue404/blog/issues/7)[开发者笔记]'
+  const header = `# TOC
 
-  saveData_dev(articles, 'articles.json');
+  `;
+  let sort = `## 分类
+
+  `;
+  labelsArr.forEach(l => {
+    sort += `- [**${l}**](#${l})
+  `;
+  });
+  let content: string = '';
+  for (let key in articles) {
+    content += `### ${key}
+
+  `;
+
+    articles[key].forEach((m: any) => {
+      content += `- ${m}
+  `;
+    });
+  }
+  let markdown: string = header + sort + content;
+  fs.writeFile(`toc/README.md`, formatMarkdown(markdown), (err: any) => {
+    console.log(err);
+  });
 });

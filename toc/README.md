@@ -16,6 +16,7 @@
 
 ### 开发者笔记
 
+- [GitHub API 纪录](https://github.com/yanyue404/blog/issues/115)
 - [超文本传输协议-HTTP](https://github.com/yanyue404/blog/issues/114)
 - [正则表达式实践](https://github.com/yanyue404/blog/issues/113)
 - [前端单元测试](https://github.com/yanyue404/blog/issues/110)

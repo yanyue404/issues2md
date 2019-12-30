@@ -45,7 +45,7 @@ function getAPI() {
       return new Promise(resolve => {
         _getAllPageIssues(urlList, (issues: Blogs[]) => {
           obj.blog = issues;
-          saveData_dev(obj);
+          saveData_dev(obj, 'api.json');
           resolve(obj);
         });
       });
