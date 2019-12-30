@@ -1,5 +1,7 @@
 const fs = require('fs');
 const config = require('../../config/config.json');
+const prettier = require('prettier');
+const formatOptions = require('../../.prettierrc.js');
 //  数据保存 至 /data/api.json
 export const saveData_dev = (data: any) => {
   const content = JSON.stringify(data);
@@ -52,4 +54,8 @@ export const createMarkdownFile = (
       });
     });
   }
+};
+
+export const formatMarkdown = (markdown: string) => {
+  return prettier.format(markdown, { ...formatOptions, parser: 'markdown' });
 };

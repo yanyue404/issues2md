@@ -1,5 +1,4 @@
-const prettier = require('prettier');
-const formatOptions = require('../.prettierrc.js');
+import { formatMarkdown } from '../src/utils';
 import { axios, cheerio, turndownService } from './index';
 
 // 单个博客地址
@@ -37,9 +36,7 @@ function getIssues(fetchUrl: string) {
 
 getIssues(issues_url)
   .then((markdown: string) => {
-    console.log(
-      prettier.format(markdown, { ...formatOptions, parser: 'markdown' }),
-    );
+    console.log(formatMarkdown(markdown));
   })
   .catch((err: any) => {
     console.log(err);
