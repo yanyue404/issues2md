@@ -119,6 +119,13 @@ getAPI(blog_url).then((html: Api) => {
   const header = `# TOC
 
   `;
+  let sort = `## 分类
+
+  `;
+  labelsArr.forEach(l => {
+    sort += `- [**${l}**](#${l})
+  `;
+  });
   let content: string = '';
   for (let key in articles) {
     content += `### ${key}
@@ -130,7 +137,7 @@ getAPI(blog_url).then((html: Api) => {
   `;
     });
   }
-  let markdown: string = header + content;
+  let markdown: string = header + sort + content;
   fs.writeFile(`toc/README.md`, formatMarkdown(markdown), (err: any) => {
     console.log(err);
   });
