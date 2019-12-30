@@ -13,7 +13,7 @@ const turndownService = new TurndownService({
 });
 const gfm = turndownPluginGfm.gfm;
 turndownService.use(gfm);
-import { saveData_dev, createMarkdownFile, addZero } from './utils';
+import { saveData_dev, createFile, addZero } from './utils';
 import { Api, Blog, Blogs } from './type';
 
 function getAPI() {
@@ -129,15 +129,19 @@ function exportAllMarkdown() {
   }
 }
 function _singleMarkdownFileExport(name: string, issuesID: string) {
-  let url: string = config.github.blog + '/issues/' + issuesID; // 拼接请求的页面链接
   let fileName: string = filenamify(name);
+  const exportByYear = config.year;
+  const fileDirectory = exportByYear
+    ? config.folder + '/' + fileName.slice(0, 4) + '/'
+    : config.folder + '/';
+  let url: string = config.github.blog + '/issues/' + issuesID; // 拼接请求的页面链接
   return axios
     .get(url)
     .then(function(response: any) {
       let html_string = response.data.toString(); // 获取网页内容
       const $ = cheerio.load(html_string); // 传入页面内容
       const content: string = turndownService.turndown($('table').html());
-      createMarkdownFile(fileName, content, issuesID);
+      createFile(fileDirectory, fileName + '.md', content);
     })
     .catch((error: any) =>
       console.log('Markdown - ' + addZero(issuesID, 3) + ' - ' + error),

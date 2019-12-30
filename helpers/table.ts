@@ -1,3 +1,4 @@
+import { turndownService } from './index';
 // table 格式的 html
 const table: string = ``;
 const logTableHtmlMarkdownStyle = (table: string) =>
