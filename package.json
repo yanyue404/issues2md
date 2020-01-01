@@ -37,6 +37,7 @@
     "@types/express": "^4.17.2",
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
+    "downloadjs": "^1.4.7",
     "express": "^4.17.1",
     "filenamify": "^4.1.0",
     "markdown-js": "^0.0.4",

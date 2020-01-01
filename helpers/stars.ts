@@ -24,7 +24,7 @@ function getPageRequestList(str: string) {
 
 function getResult(fetchList: string[]) {
   let obj: any = [];
-  let folling_obj: any = [];
+  let stars_obj: any = [];
   return Promise.all(fetchList.map(url => $axios.get(url))).then(
     (...res: any) => {
       let stars = res[0];
@@ -34,18 +34,25 @@ function getResult(fetchList: string[]) {
       console.log(obj.length);
       for (let n = 0; n < obj.length; n++) {
         let star = obj[n];
-        folling_obj.push({
-          name: star.login,
+        stars_obj.push({
+          name: star.name,
+          full_name: star.full_name,
           url: star.html_url,
-          repos_url: star.repos_url,
+          owner: star.owner.login,
           avatar_url: star.avatar_url,
+          description: star.description,
+          forks_count: star.forks_count,
+          stars_count: star.stargazers_count,
+          language: star.language,
         });
       }
-      console.log(folling_obj);
+      console.log(stars_obj);
 
-      saveData_dev(folling_obj, 'following.json');
+      saveData_dev(stars_obj, 'stars.json');
     },
   );
 }
 
-getAPI('https://api.github.com/users/yanyue404/following');
+getAPI('https://api.github.com/users/yanyue404/starred');
+
+// https://segmentfault.com/q/1010000008917183
