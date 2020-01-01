@@ -65,3 +65,7 @@ export const check_npm_argv = (
     }
   }
 };
+
+export const githubToken = (token: string) => {
+  return Buffer.from(token, 'base64').toString();
+};

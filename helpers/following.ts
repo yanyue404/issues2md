@@ -1,5 +1,6 @@
 import { $axios } from './index';
-import { saveData_dev } from '../src/utils';
+import { createFile } from '../src/utils';
+const table = require('markdown-table');
 
 function getAPI(url: string) {
   $axios.get(url).then((result: any) => {
@@ -25,15 +26,23 @@ function getPageRequestList(str: string) {
 function getResult(fetchList: string[]) {
   let obj: any = [];
   let folling_obj: any = [];
+  let tableArr: any = [['Avatar', 'UserName', 'Repos_url']];
+  let getAvatorImg = (src: string, name: string) => {
+    return `<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="${name}" src="${src}" style="box-shadow: transparent 0px 0px;">`;
+  };
   return Promise.all(fetchList.map(url => $axios.get(url))).then(
     (...res: any) => {
       let stars = res[0];
       for (let m = 0; m < stars.length; m++) {
         obj = obj.concat(stars[m].data);
       }
-      console.log(obj.length);
       for (let n = 0; n < obj.length; n++) {
         let star = obj[n];
+        tableArr.push([
+          getAvatorImg(star.avatar_url, star.login),
+          `[${star.login}](${star.html_url})`,
+          star.repos_url,
+        ]);
         folling_obj.push({
           name: star.login,
           url: star.html_url,
@@ -41,9 +50,12 @@ function getResult(fetchList: string[]) {
           avatar_url: star.avatar_url,
         });
       }
-      console.log(folling_obj);
-
-      saveData_dev(folling_obj, 'following.json');
+      // console.log(folling_obj);
+      const content = table(tableArr, {
+        align: ['c', 'c', 'l'],
+      });
+      createFile('docs/', 'following.md', content);
+      // saveData_dev(folling_obj, 'following.json');
     },
   );
 }

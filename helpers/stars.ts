@@ -1,5 +1,6 @@
 import { $axios } from './index';
-import { saveData_dev } from '../src/utils';
+import { saveData_dev, createFile } from '../src/utils';
+const table = require('markdown-table');
 
 function getAPI(url: string) {
   $axios.get(url).then((result: any) => {
@@ -25,6 +26,10 @@ function getPageRequestList(str: string) {
 function getResult(fetchList: string[]) {
   let obj: any = [];
   let stars_obj: any = [];
+  let tableArr: any = [['Avatar', 'Repo', 'Description']];
+  let getAvatorImg = (src: string, name: string) => {
+    return `<img class="avatar ghh-user-x tooltipstered" height="50" width="50" alt="${name}" src="${src}" style="box-shadow: transparent 0px 0px;">`;
+  };
   return Promise.all(fetchList.map(url => $axios.get(url))).then(
     (...res: any) => {
       let stars = res[0];
@@ -34,19 +39,28 @@ function getResult(fetchList: string[]) {
       console.log(obj.length);
       for (let n = 0; n < obj.length; n++) {
         let star = obj[n];
+        tableArr.push([
+          getAvatorImg(star.owner.avatar_url, star.owner.login),
+          `[${star.name}](${star.html_url})`,
+          star.description,
+        ]);
         stars_obj.push({
           name: star.name,
           full_name: star.full_name,
           url: star.html_url,
           owner: star.owner.login,
-          avatar_url: star.avatar_url,
+          avatar_url: star.owner.avatar_url,
           description: star.description,
           forks_count: star.forks_count,
           stars_count: star.stargazers_count,
           language: star.language,
         });
       }
-      console.log(stars_obj);
+      // console.log(stars_obj);
+      const content = table(tableArr, {
+        align: ['c', 'c', 'l'],
+      });
+      createFile('docs/', 'stars.md', content);
 
       saveData_dev(stars_obj, 'stars.json');
     },
@@ -54,5 +68,3 @@ function getResult(fetchList: string[]) {
 }
 
 getAPI('https://api.github.com/users/yanyue404/starred');
-
-// https://segmentfault.com/q/1010000008917183
