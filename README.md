@@ -1,6 +1,6 @@
-# github-enhance
+# github-export
 
-本项目立足于 node 爬虫技术，实践方向为 GitHub 用户体验的增强
+Export Github (Issues, Stars, Following) to markdown/json file
 
 ## Install
 
@@ -13,48 +13,63 @@ $ npm i -g nodemon ts-node
 Then, clone the repo.
 
 ```bash
-$ git clone https://github.com/yanyue404/github-enhance.git
+$ git clone https://github.com/yanyue404/github-export.git
 ```
 
 Install the dependencies.
 
 ```bash
-$ cd github-enhance
+$ cd github-export
 $ npm install
 ```
 
 ## Usage
 
-### 文件导出
+### 1. Issues export
+
+- 导出 Repo 所有 Issues
 
 为使用 GitHub issues 写博客的博主提供 全部导出方案（**markdown** 格式），[使用说明](./docs/github-issues-export.md)
 
-### 命令行使用
+- 命令行输出 issue 文件内容
 
 ```bash
-# 输出单个 GitHub issues 链接的 markdown 内容
 yarn log:issues [github issues url]
 ```
 
-![](./screenshot/issues.png)
+- 导出 Repo issues 资源的 json 列表，[data/articles.json](./data/articles.json)
 
 ```bash
-# 导出 GitHub blog issues 的文章json列表, data/articles.json
 yarn export:articles [github blog url]
 ```
 
-![](./screenshot/articles.png)
+- 导出 Repo issues 资源的文章目录，[toc/README.md](./toc/README.md)
 
 ```bash
-# 导出 GitHub blog issues 的文章目录，toc/README.md
 yarn export:toc [github blog url]
 ```
 
-![](./screenshot/toc.png)
+### 2. Stars export
+
+导出 GitHub 账户 star 的项目，导出 [json](./data/stars.json) 以及 [markdown](./docs/stars.md) 文件
+
+```bash
+yarn export:stars [github url]
+```
+
+### 3. Following export
+
+导出 GitHub 账户 following 的项目，导出 [json](./data/following.json) 以及 [markdown](./docs/following.md) 文件
+
+```bash
+yarn export:following [github url]
+```
 
 ## Thanks
 
-- [Crawler-for-Github-Trending](https://github.com/ZY2071/Crawler-for-Github-Trending)
+- https://github.com/ZY2071/Crawler-for-Github-Trending
+- https://developer.github.com/v3/
+- https://github.com/ttop5/issue-blog
 
 ## License
 
