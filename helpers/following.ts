@@ -1,13 +1,23 @@
 import { $axios } from './index';
-import { createFile } from '../src/utils';
+import { createFile, saveData_dev } from '../src/utils';
+const config = require('../config/config.json');
 const table = require('markdown-table');
 
+// 博客主页地址
+let github_url = config.github.homepage;
+const username = github_url.slice(github_url.lastIndexOf('/') + 1);
+
+const api = `https://api.github.com/users/${username}/following`;
+
 function getAPI(url: string) {
-  $axios.get(url).then((result: any) => {
-    console.log(result.data.length);
-    console.log(result.headers.link);
-    getResult(getPageRequestList(result.headers.link));
-  });
+  $axios
+    .get(url)
+    .then((result: any) => {
+      getResult(getPageRequestList(result.headers.link));
+    })
+    .catch((err: any) => {
+      console.log(err);
+    });
 }
 
 function getPageRequestList(str: string) {
@@ -36,6 +46,7 @@ function getResult(fetchList: string[]) {
       for (let m = 0; m < stars.length; m++) {
         obj = obj.concat(stars[m].data);
       }
+      console.log(`${obj.length}条数据--------------`);
       for (let n = 0; n < obj.length; n++) {
         let star = obj[n];
         tableArr.push([
@@ -55,9 +66,9 @@ function getResult(fetchList: string[]) {
         align: ['c', 'c', 'l'],
       });
       createFile('docs/', 'following.md', content);
-      // saveData_dev(folling_obj, 'following.json');
+      saveData_dev(folling_obj, 'following.json');
     },
   );
 }
 
-getAPI('https://api.github.com/users/yanyue404/following');
+getAPI(api);

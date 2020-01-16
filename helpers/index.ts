@@ -1,6 +1,7 @@
 export const TurndownService = require('turndown');
 const turndownPluginGfm = require('turndown-plugin-gfm');
 import { githubToken } from '../src/utils/index';
+const config = require('../config/config.json');
 export const axios = require('axios');
 export const cheerio = require('cheerio');
 export const turndownService = new TurndownService({
@@ -11,9 +12,7 @@ export const turndownService = new TurndownService({
 const gfm = turndownPluginGfm.gfm;
 turndownService.use(gfm);
 
-let token = githubToken(
-  'MWM2YmE5NmMwODJhODgyYzBiZmM2ZWExNGVhNzFhYjFkZTM4MzcwYw==',
-);
+let token = githubToken(config.github.token);
 
 export const $axios = axios.create({
   baseURL: 'https://api.github.com',

@@ -1,5 +1,5 @@
 {
-  "name": "issues-to-markdown",
+  "name": "github-export",
   "version": "0.0.5",
   "description": "Convert github issues to md files",
   "main": "app.js",
@@ -7,6 +7,7 @@
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "watch": "tsc -w",
     "log:issue": "ts-node ./helpers/issue.ts",
+    "export:issues": "ts-node ./src/app.ts",
     "export:articles": "ts-node ./helpers/articles.ts",
     "export:toc": "ts-node ./helpers/toc.ts",
     "export:following": "ts-node ./helpers/following.ts",
@@ -22,7 +23,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanyue404/issues-to-markdown.git"
+    "url": "git+https://github.com/yanyue404/github-export.git"
   },
   "keywords": [
     "github",
@@ -33,9 +34,9 @@
   "author": "yanyue404",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yanyue404/issues-to-markdown/issues"
+    "url": "https://github.com/yanyue404/github-export/issues"
   },
-  "homepage": "https://github.com/yanyue404/issues-to-markdown#readme",
+  "homepage": "https://github.com/yanyue404/github-export#readme",
   "dependencies": {
     "@types/express": "^4.17.2",
     "axios": "^0.19.0",

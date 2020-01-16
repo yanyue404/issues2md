@@ -1,7 +1,8 @@
 {
   "github": {
-    "blog": "https://github.com/yanyue404/blog"
+    "homepage": "https://github.com/yanyue404",
+    "blog": "https://github.com/yanyue404/blog",
+    "token": "MWM2YmE5NmMwODJhODgyYzBiZmM2ZWExNGVhNzFhYjFkZTM4MzcwYw=="
   },
-  "folder": "articles",
   "year": true
 }

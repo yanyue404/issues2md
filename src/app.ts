@@ -114,11 +114,11 @@ function _getSimglePageIssuesMessage(fetchUrl: string) {
 }
 
 function exportAllMarkdown() {
-  let SETING_FILE = 'data/api.json';
+  let SETING_FILE = 'json/api.json';
   if (fs.existsSync(SETING_FILE)) {
     fs.readFile(SETING_FILE, 'utf8', function(err: any, data: any) {
       if (err) console.log(err);
-      const issues = JSON.parse(data).blogs;
+      const issues = JSON.parse(data).blog;
       // 导出
       issues.forEach((issue: Blog) => {
         _singleMarkdownFileExport(issue.time + '-' + issue.title, issue.id);
@@ -132,8 +132,8 @@ function _singleMarkdownFileExport(name: string, issuesID: string) {
   let fileName: string = filenamify(name);
   const exportByYear = config.year;
   const fileDirectory = exportByYear
-    ? config.folder + '/' + fileName.slice(0, 4) + '/'
-    : config.folder + '/';
+    ? 'articles/' + fileName.slice(0, 4) + '/'
+    : 'articles/';
   let url: string = config.github.blog + '/issues/' + issuesID; // 拼接请求的页面链接
   return axios
     .get(url)
@@ -147,6 +147,7 @@ function _singleMarkdownFileExport(name: string, issuesID: string) {
       console.log('Markdown - ' + addZero(issuesID, 3) + ' - ' + error),
     );
 }
+
 function getHtml() {
   return axios
     .get(config.github.blog + '/issues')
@@ -157,25 +158,11 @@ function getHtml() {
       console.log(error);
     });
 }
-app.get('/', (req: any, res: any) => {
-  let promise = getHtml();
-  promise.then((html: any) => {
-    res.send(html);
-    res.end();
-  });
-});
-app.get('/api', (req: any, res: any) => {
+
+const issuesExport = () => {
   let promise = getAPI(); // 发起抓取
   promise.then((response: any) => {
-    //markdown.markHtml(); 是将markdown格式的字符转换成Html
-    res.send(response);
-    res.end();
+    exportAllMarkdown();
   });
-});
-app.get('/export', (req: any, res: any) => {
-  exportAllMarkdown();
-  res.send();
-  res.end();
-});
-
-app.listen(3000, () => console.log('Listening on http://localhost:3000!')); // 监听3000端口
+};
+issuesExport();

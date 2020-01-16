@@ -1,17 +1,11 @@
 const fs = require('fs');
 import { axios, cheerio } from './index';
-import { formatMarkdown, check_npm_argv } from '../src/utils';
+import { formatMarkdown } from '../src/utils';
+const config = require('../config/config.json');
 import { Api } from '../src/type';
 
 // 博客主页地址
-let blog_url = 'https://github.com/yanyue404/blog';
-
-// 命令行传参校验
-check_npm_argv(
-  'export:toc',
-  blog_url,
-  'npm argv Error,请输入一个合理的 GitHub repositories 地址，比如: https://github.com/yanyue404/blog',
-);
+let blog_url = config.github.blog;
 
 function getAPI(url: any) {
   return axios
@@ -131,7 +125,9 @@ getAPI(blog_url).then((html: Api) => {
     sort += `- [**${l}**](#${l})
   `;
   });
-  let content: string = '';
+  let content = `## 文章
+
+  `;
   for (let key in articles) {
     content += `### ${key}
 

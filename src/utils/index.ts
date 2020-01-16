@@ -5,8 +5,8 @@ const formatOptions = require('../../.prettierrc.js');
 //  数据保存 至 data 文件夹
 export const saveData_dev = (data: string, href: string) => {
   const content = JSON.stringify(data);
-  if (fs.existsSync('data/')) {
-    fs.writeFile('data/' + href, content, (err: any) => {
+  if (fs.existsSync('json/')) {
+    fs.writeFile('json/' + href, content, (err: any) => {
       if (err) throw err;
       console.log(`${href} saved successful!`);
     });

@@ -101,3 +101,4 @@ showColumnInfo: 2245.060ms
 -   [ASYNC/AWAIT 使用警示](http://huihuawk.com/front/async-await/)
 -   [How to escape async/await hell](https://www.freecodecamp.org/news/avoiding-the-async-await-hell-c77a0fb71c4c/)
 -   [github/course-javascript-async-await](https://github.com/wangshijun/course-javascript-async-await) - Source code for course "asynchronous javascript with async/await"
+-   [https://developers.google.com/web/fundamentals/primers/async-functions](https://developers.google.com/web/fundamentals/primers/async-functions)
