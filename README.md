@@ -30,7 +30,7 @@ $ npm install
 ```json
 {
   "github": {
-    "homepage": "https://github.com/yanyue404", // Stars & Following  export Use
+    "homepage": "https://github.com/yanyue404",
     "blog": "https://github.com/yanyue404/blog",
     "token": "MWM2YmE5NmMwODJhODgyYzBiZmM2ZWExNGVhNzFhYjFkZTM4MzcwYw=="
   },
@@ -67,7 +67,7 @@ window.btoa('{你的 GitHub Token}')
 
 ## Usage
 
-Issues export
+### Issues export
 
 （1）导出 Repo 所有 Issues
 
