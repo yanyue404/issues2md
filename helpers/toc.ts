@@ -7,7 +7,7 @@ import { Api } from '../src/type';
 // 博客主页地址
 let blog_url = config.github.blog;
 
-function getAPI(url: any) {
+function getAPI(url: string) {
   return axios
     .get(url + '/issues')
     .then(function(response: any) {
@@ -15,9 +15,9 @@ function getAPI(url: any) {
       const $ = cheerio.load(html_string); // 传入页面内容
       let obj: any = {};
       const totalPage = $('.pagination')
-        .find('a')
-        .eq(-2)
-        .text();
+        .find('.current')
+        .data('total-pages');
+      console.log(totalPage);
       obj.totalPage = Number(totalPage);
       const numbers = $('.states a')
         .eq(0)
@@ -32,6 +32,7 @@ function getAPI(url: any) {
           url + '/issues?page=' + i + ' is:issue is:open';
       }
       obj.fetchList = urlList;
+      console.dir(obj);
       // 获取所有  Issues 数据,再返回
       return new Promise(resolve => {
         getAllPageIssues(urlList, (issues: any) => {
