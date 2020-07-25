@@ -1,5 +1,5 @@
 import { $axios } from './index';
-import { createFile, saveData_dev } from '../src/utils';
+import { createFile, saveData_dev } from '../utils';
 const table = require('markdown-table');
 
 function getAPI(url: string) {

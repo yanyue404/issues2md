@@ -1,7 +1,7 @@
 import { axios, cheerio } from './index';
-import { saveData_dev } from '../src/utils';
+import { saveData_dev } from '../utils';
 const config = require('../config/config.json');
-import { Api } from '../src/type';
+import { Api } from '../type';
 
 // 博客主页地址
 let blog_url = config.github.blog;

@@ -1,8 +1,8 @@
 const fs = require('fs');
 import { axios, cheerio } from './index';
-import { formatMarkdown } from '../src/utils';
+import { formatMarkdown } from '../utils';
 const config = require('../config/config.json');
-import { Api } from '../src/type';
+import { Api } from '../type';
 
 // 博客主页地址
 let blog_url = config.github.blog;
