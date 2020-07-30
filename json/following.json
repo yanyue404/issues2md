@@ -18,6 +18,12 @@
     "avatar_url": "https://avatars3.githubusercontent.com/u/50130?v=4"
   },
   {
+    "name": "happypeter",
+    "url": "https://github.com/happypeter",
+    "repos_url": "https://api.github.com/users/happypeter/repos",
+    "avatar_url": "https://avatars0.githubusercontent.com/u/72467?v=4"
+  },
+  {
     "name": "latentflip",
     "url": "https://github.com/latentflip",
     "repos_url": "https://api.github.com/users/latentflip/repos",
@@ -198,6 +204,12 @@
     "avatar_url": "https://avatars1.githubusercontent.com/u/1128784?v=4"
   },
   {
+    "name": "jlord",
+    "url": "https://github.com/jlord",
+    "repos_url": "https://api.github.com/users/jlord/repos",
+    "avatar_url": "https://avatars3.githubusercontent.com/u/1305617?v=4"
+  },
+  {
     "name": "cassidoo",
     "url": "https://github.com/cassidoo",
     "repos_url": "https://api.github.com/users/cassidoo/repos",
@@ -298,6 +310,12 @@
     "url": "https://github.com/acdlite",
     "repos_url": "https://api.github.com/users/acdlite/repos",
     "avatar_url": "https://avatars0.githubusercontent.com/u/3624098?v=4"
+  },
+  {
+    "name": "aholachek",
+    "url": "https://github.com/aholachek",
+    "repos_url": "https://api.github.com/users/aholachek/repos",
+    "avatar_url": "https://avatars2.githubusercontent.com/u/3680488?v=4"
   },
   {
     "name": "cythilya",
@@ -420,6 +438,12 @@
     "avatar_url": "https://avatars1.githubusercontent.com/u/7031129?v=4"
   },
   {
+    "name": "chenjiahan",
+    "url": "https://github.com/chenjiahan",
+    "repos_url": "https://api.github.com/users/chenjiahan/repos",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/7237365?v=4"
+  },
+  {
     "name": "QianMo",
     "url": "https://github.com/QianMo",
     "repos_url": "https://api.github.com/users/QianMo/repos",
@@ -528,6 +552,12 @@
     "avatar_url": "https://avatars3.githubusercontent.com/u/10172415?v=4"
   },
   {
+    "name": "joeyguo",
+    "url": "https://github.com/joeyguo",
+    "repos_url": "https://api.github.com/users/joeyguo/repos",
+    "avatar_url": "https://avatars2.githubusercontent.com/u/10385585?v=4"
+  },
+  {
     "name": "airingursb",
     "url": "https://github.com/airingursb",
     "repos_url": "https://api.github.com/users/airingursb/repos",
@@ -544,6 +574,12 @@
     "url": "https://github.com/lessfish",
     "repos_url": "https://api.github.com/users/lessfish/repos",
     "avatar_url": "https://avatars3.githubusercontent.com/u/10890665?v=4"
+  },
+  {
+    "name": "happylindz",
+    "url": "https://github.com/happylindz",
+    "repos_url": "https://api.github.com/users/happylindz/repos",
+    "avatar_url": "https://avatars2.githubusercontent.com/u/10935962?v=4"
   },
   {
     "name": "15Dkatz",
@@ -642,6 +678,12 @@
     "avatar_url": "https://avatars3.githubusercontent.com/u/13751432?v=4"
   },
   {
+    "name": "xd-tayde",
+    "url": "https://github.com/xd-tayde",
+    "repos_url": "https://api.github.com/users/xd-tayde/repos",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/14119673?v=4"
+  },
+  {
     "name": "HcySunYang",
     "url": "https://github.com/HcySunYang",
     "repos_url": "https://api.github.com/users/HcySunYang/repos",
@@ -652,6 +694,12 @@
     "url": "https://github.com/zaxlct",
     "repos_url": "https://api.github.com/users/zaxlct/repos",
     "avatar_url": "https://avatars2.githubusercontent.com/u/14342431?v=4"
+  },
+  {
+    "name": "chenjigeng",
+    "url": "https://github.com/chenjigeng",
+    "repos_url": "https://api.github.com/users/chenjigeng/repos",
+    "avatar_url": "https://avatars0.githubusercontent.com/u/14784326?v=4"
   },
   {
     "name": "simbawus",
@@ -714,10 +762,16 @@
     "avatar_url": "https://avatars1.githubusercontent.com/u/19285461?v=4"
   },
   {
-    "name": "cosyer",
-    "url": "https://github.com/cosyer",
-    "repos_url": "https://api.github.com/users/cosyer/repos",
-    "avatar_url": "https://avatars3.githubusercontent.com/u/19321324?v=4"
+    "name": "MuYunyun",
+    "url": "https://github.com/MuYunyun",
+    "repos_url": "https://api.github.com/users/MuYunyun/repos",
+    "avatar_url": "https://avatars2.githubusercontent.com/u/19354791?v=4"
+  },
+  {
+    "name": "PengJiyuan",
+    "url": "https://github.com/PengJiyuan",
+    "repos_url": "https://api.github.com/users/PengJiyuan/repos",
+    "avatar_url": "https://avatars0.githubusercontent.com/u/19399269?v=4"
   },
   {
     "name": "Anduin2017",
@@ -754,6 +808,12 @@
     "url": "https://github.com/li-shuaishuai",
     "repos_url": "https://api.github.com/users/li-shuaishuai/repos",
     "avatar_url": "https://avatars1.githubusercontent.com/u/20487014?v=4"
+  },
+  {
+    "name": "woai3c",
+    "url": "https://github.com/woai3c",
+    "repos_url": "https://api.github.com/users/woai3c/repos",
+    "avatar_url": "https://avatars1.githubusercontent.com/u/22117876?v=4"
   },
   {
     "name": "careteenL",
@@ -796,6 +856,12 @@
     "url": "https://github.com/hero-x",
     "repos_url": "https://api.github.com/users/hero-x/repos",
     "avatar_url": "https://avatars1.githubusercontent.com/u/26160529?v=4"
+  },
+  {
+    "name": "ZHAISHENKING",
+    "url": "https://github.com/ZHAISHENKING",
+    "repos_url": "https://api.github.com/users/ZHAISHENKING/repos",
+    "avatar_url": "https://avatars0.githubusercontent.com/u/26210916?v=4"
   },
   {
     "name": "dongyuanxin",

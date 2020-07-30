@@ -6,13 +6,7 @@
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "watch": "tsc -w",
-    "log:issue": "ts-node ./helpers/issue.ts",
     "dev": "ts-node ./src/app.ts",
-    "export:issues": "ts-node ./src/app.ts",
-    "export:articles": "ts-node ./helpers/articles.ts",
-    "export:toc": "ts-node ./helpers/toc.ts",
-    "export:follow": "ts-node ./helpers/following.ts",
-    "export:stars": "ts-node ./helpers/stars.ts",
     "server": "nodemon ./build/app.js",
     "test": "node ./test/",
     "start": "npm run server"
