@@ -3,6 +3,7 @@
 .idea
 *.sublime-*
 build
+bin
 
 # npm
 node_modules

@@ -1,6 +1,6 @@
 #!/usr/bin/env ts-node
 import * as commander from 'commander';
-import { exportIssuesBlogDoc } from './command/toc';
+import { exportIssuesBlogToc } from './command/toc';
 import { exportSimgleIssue } from './command/issue';
 import { exportGithubUserStared } from './command/stars';
 import { exportGithubUserFolling } from './command/following';
@@ -9,7 +9,7 @@ import { exportIssuesBlogArticles } from './command/articles';
 const program = new commander.Command();
 
 program
-  .version('0.0.2')
+  .version('0.0.4')
   .name('export')
   .usage('<issue || issues || doc || stars || stars || follow || articles>')
   .arguments('<cmd> [detail]')
@@ -19,9 +19,9 @@ program
       // issues_url 'https://github.com/yanyue404/blog/issues/110';
       exportSimgleIssue(detail);
       // test: yarn dev doc https://github.com/yanyue404/blog
-    } else if (cmd === 'doc') {
+    } else if (cmd === 'toc') {
       // blog_url 'https://github.com/yanyue404/blog'
-      exportIssuesBlogDoc(detail);
+      exportIssuesBlogToc(detail);
     } else if (cmd === 'star') {
       exportGithubUserStared(detail);
     } else if (cmd === 'flow') {

@@ -7,7 +7,7 @@
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
-    "outDir": "./build",
+    "outDir": "./bin",
     "baseUrl": ".",
     "paths": {
       "*": ["node_modules/*", "src/types/*"]

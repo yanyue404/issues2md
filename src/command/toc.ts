@@ -98,7 +98,7 @@ function getSimglePageIssuesMessage(fetchUrl: string) {
     });
 }
 
-const exportIssuesBlogDoc = (blog_url: string) => {
+const exportIssuesBlogToc = (blog_url: string) => {
   getAPI(blog_url).then((html: Api) => {
     let labelsArr: any[] = [];
     let articles: any = {};
@@ -143,4 +143,4 @@ const exportIssuesBlogDoc = (blog_url: string) => {
   });
 };
 
-export { exportIssuesBlogDoc };
+export { exportIssuesBlogToc };

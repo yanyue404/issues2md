@@ -1,16 +1,16 @@
 {
-  "name": "github-export",
-  "version": "0.0.2",
-  "description": "Convert github issues to md files",
+  "name": "github-to-md",
+  "version": "0.0.4",
+  "description": "Export Github (Issues, Stars, Following) to markdown file",
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "watch": "tsc -w",
     "dev": "ts-node ./src/app.ts",
-    "server": "nodemon ./build/app.js",
-    "test": "node ./test/",
-    "start": "npm run server"
+    "build": "tsc",
+    "prepare": "npm run build"
   },
+  "bin": "bin/app.js",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
