@@ -1,5 +1,5 @@
 const fs = require('fs');
-import { axios, cheerio } from './index';
+import { axios, cheerio, turndownService } from './index';
 import { formatMarkdown } from '../utils';
 import { Api } from '../type';
 
@@ -28,7 +28,6 @@ function getAPI(url: string) {
           url + '/issues?page=' + i + ' is:issue is:open';
       }
       obj.fetchList = urlList;
-      console.dir(obj);
       // 获取所有  Issues 数据,再返回
       return new Promise(resolve => {
         getAllPageIssues(urlList, (issues: any) => {
@@ -112,31 +111,33 @@ const exportIssuesBlogToc = (blog_url: string) => {
         articles[label].push(`[${v.title}](${blog_url}/issues/${v.id})`);
       }
     });
+
     // '-[npm&yarn](https://github.com/yanyue404/blog/issues/7)[开发者笔记]'
-    const header = `# TOC
-
-    `;
-    let sort = `## 分类
-
-    `;
-    labelsArr.forEach(l => {
-      sort += `- [**${l}**](#${l})
-    `;
+    const header = '<h1>TOC</h1><br>';
+    let sort = `<h2>分类</h2><br>`;
+    sort += `<ul>`;
+    labelsArr.forEach(category => {
+      sort += `<li><a href="#${category}"><strong>${category}</strong></a></li>`;
     });
-    let content = `## 文章
+    sort += `</ul><br>`;
 
-    `;
+    let content = `<h2>文章</h2><br>`;
     for (let key in articles) {
-      content += `### ${key}
+      content += `<h3>${key}</h3><br>`;
+      content += `<ul>`;
 
-    `;
-
-      articles[key].forEach((m: any) => {
-        content += `- ${m}
-    `;
+      articles[key].forEach((m: any, index: number, arr: any) => {
+        content += `<li href="${m}">${m}</li>`;
+        if (index === arr.length - 1) {
+          content += `<br>`;
+        }
       });
+      content += `</ul>`;
     }
-    let markdown: string = header + sort + content;
+    let markdown: string = turndownService.turndown(
+      '<body>' + header + sort + content + '</body>',
+    );
+
     const dir = 'docs/';
     !fs.existsSync(dir) && fs.mkdirSync(dir);
     fs.writeFile(`docs/Toc.md`, formatMarkdown(markdown), (err: any) => {

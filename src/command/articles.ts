@@ -39,7 +39,7 @@ function getAPI(blogURL: string): Promise<any> {
       obj.fetchList = urlList;
       // 获取所有  Issues 数据,再返回
       _getAllPageIssues(urlList, (issues: Blogs[]) => {
-        obj.blog = issues;
+        obj.blogs = issues;
         saveData_dev(obj, 'api.json', function() {
           resolve(obj);
         });
@@ -113,7 +113,7 @@ function exportAllMarkdown() {
   if (fs.existsSync(SETING_FILE)) {
     fs.readFile(SETING_FILE, 'utf8', function(err: any, data: any) {
       if (err) console.log(err);
-      const issues = JSON.parse(data).blog;
+      const issues = JSON.parse(data).blogs;
       // 导出
       issues.forEach((issue: Blog) => {
         _singleMarkdownFileExport(issue.time + '-' + issue.title, issue.id);

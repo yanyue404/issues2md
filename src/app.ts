@@ -8,26 +8,27 @@ import { exportIssuesBlogArticles } from './command/articles';
 
 const program = new commander.Command();
 
+const run = (cmd: string, param: string) => {
+  const obj: any = {
+    issue: exportSimgleIssue, // github-to-md issue https://github.com/yanyue404/blog/issues/110
+    toc: exportIssuesBlogToc, // github-to-md toc https://github.com/yanyue404/blog
+    star: exportGithubUserStared, // github-to-md star yanyue404
+    follow: exportGithubUserFolling, // github-to-md follow yanyue404
+    articles: exportIssuesBlogArticles, // github-to-md articles https://github.com/yanyue404/blog
+  };
+  obj[cmd] && obj[cmd](param);
+};
+
 program
-  .version('0.7.0')
-  .name('export')
-  .usage('<issue || issues || doc || stars || stars || follow || articles>')
-  .arguments('<cmd> [detail]')
-  .action(function(cmd, detail) {
-    // test: yarn dev issue https://github.com/yanyue404/blog/issues/110
-    if (cmd === 'issue') {
-      // issues_url 'https://github.com/yanyue404/blog/issues/110';
-      exportSimgleIssue(detail);
-      // test: yarn dev doc https://github.com/yanyue404/blog
-    } else if (cmd === 'toc') {
-      // blog_url 'https://github.com/yanyue404/blog'
-      exportIssuesBlogToc(detail);
-    } else if (cmd === 'star') {
-      exportGithubUserStared(detail);
-    } else if (cmd === 'flow') {
-      exportGithubUserFolling(detail);
-    } else if (cmd === 'articles') {
-      exportIssuesBlogArticles(detail);
-    }
+  .version('0.7.5')
+  .description('Export Github (Issues, Stars, Following) to markdown file')
+  .name('github-to-md')
+  .usage('<issue || toc || star || follow || articles>')
+  .arguments('<cmd> [param]')
+  .action(function(cmd, param) {
+    run(cmd, param);
   });
+
 program.parse(process.argv);
+
+if (!program.args.length) program.help();
