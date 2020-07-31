@@ -1,11 +1,9 @@
 const fs = require('fs');
 const axios = require('axios');
-const express = require('express');
 const cheerio = require('cheerio');
 const filenamify = require('filenamify');
 const TurndownService = require('turndown');
 const turndownPluginGfm = require('turndown-plugin-gfm');
-const app = express();
 const config = require('../../config/config.json');
 const turndownService = new TurndownService({
   headingStyle: 'atx',
@@ -17,9 +15,8 @@ import { saveData_dev, createFile, addZero } from '../utils';
 import { Api, Blog, Blogs } from '../type';
 
 function getAPI(blogURL: string): Promise<any> {
-  return axios
-    .get(blogURL + '/issues')
-    .then(function(response: any) {
+  return new Promise(resolve => {
+    axios.get(blogURL + '/issues').then(function(response: any) {
       let html_string: string = response.data.toString(); // 获取网页内容
       const $ = cheerio.load(html_string); // 传入页面内容
       let obj: any = {};
@@ -41,17 +38,16 @@ function getAPI(blogURL: string): Promise<any> {
       }
       obj.fetchList = urlList;
       // 获取所有  Issues 数据,再返回
-      return new Promise(resolve => {
-        _getAllPageIssues(urlList, (issues: Blogs[]) => {
-          obj.blog = issues;
-          saveData_dev(obj, 'api.json');
+      _getAllPageIssues(urlList, (issues: Blogs[]) => {
+        obj.blog = issues;
+        saveData_dev(obj, 'api.json', function() {
           resolve(obj);
         });
       });
-    })
-    .catch(function(error: any) {
-      console.log(error);
     });
+  }).catch(function(error: any) {
+    console.log(error);
+  });
 }
 function _getAllPageIssues(
   fetchUrlsArray: string[],
@@ -113,7 +109,7 @@ function _getSimglePageIssuesMessage(fetchUrl: string) {
 }
 
 function exportAllMarkdown() {
-  let SETING_FILE = 'json/api.json';
+  let SETING_FILE = 'docs/json/api.json';
   if (fs.existsSync(SETING_FILE)) {
     fs.readFile(SETING_FILE, 'utf8', function(err: any, data: any) {
       if (err) console.log(err);
@@ -124,7 +120,7 @@ function exportAllMarkdown() {
       });
     });
   } else {
-    console.log('not find' + SETING_FILE);
+    console.log('not find ' + SETING_FILE);
   }
 }
 function _singleMarkdownFileExport(name: string, issuesID: string) {
@@ -145,17 +141,6 @@ function _singleMarkdownFileExport(name: string, issuesID: string) {
     .catch((error: any) =>
       console.log('Markdown - ' + addZero(issuesID, 3) + ' - ' + error),
     );
-}
-
-function getHtml() {
-  return axios
-    .get(config.github.blog + '/issues')
-    .then((response: any) => {
-      return Promise.resolve(response.data.toString());
-    })
-    .catch((error: any) => {
-      console.log(error);
-    });
 }
 
 const exportIssuesBlogArticles = (blog_url: string) => {

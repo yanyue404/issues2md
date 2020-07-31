@@ -3,14 +3,15 @@ const prettier = require('prettier');
 const formatOptions = require('../../.prettierrc.js');
 
 //  数据保存 至 data 文件夹
-export const saveData_dev = (data: string, href: string) => {
+export const saveData_dev = (data: string, href: string, callback?: any) => {
   const content = JSON.stringify(data);
-  if (fs.existsSync('json/')) {
-    fs.writeFile('json/' + href, content, (err: any) => {
-      if (err) throw err;
-      console.log(`${href} saved successful!`);
-    });
-  }
+  const dir = 'docs/json/';
+  !fs.existsSync(dir) && fs.mkdirSync(dir);
+  fs.writeFile('docs/json/' + href, content, (err: any) => {
+    if (err) throw err;
+    callback && callback();
+    console.log(`${href} saved successful!`);
+  });
 };
 
 export const addZero = (num: any, length: any) => {

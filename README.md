@@ -4,11 +4,45 @@
 
 Export Github (Issues, Stars, Following) to markdown file
 
-## Thanks
+## Install
 
-- https://github.com/ZY2071/Crawler-for-Github-Trending
-- https://developer.github.com/v3/
-- https://github.com/ttop5/issue-blog
+Install with [npm](https://www.npmjs.com/):
+
+```sh
+$ npm install github-to-md -g
+```
+
+## Usage
+
+Export Github User Started list as Markdown:
+
+```bash
+github-to-md star [github_userName]
+```
+
+Export Github User following list as Markdown:
+
+```bash
+github-to-md follow [github_userName]
+```
+
+Export simgle issue as Markdown:
+
+```bash
+github-to-md issue [issue_URL]
+```
+
+Export Github Blog issues list as Markdown:
+
+```bash
+github-to-md toc [blog_URL]
+```
+
+Export Github Blog issues as Markdown:
+
+```bash
+github-to-md articles [blog_URL]
+```
 
 ## License
 

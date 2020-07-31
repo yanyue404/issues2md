@@ -9,7 +9,7 @@ import { exportIssuesBlogArticles } from './command/articles';
 const program = new commander.Command();
 
 program
-  .version('0.0.4')
+  .version('0.7.0')
   .name('export')
   .usage('<issue || issues || doc || stars || stars || follow || articles>')
   .arguments('<cmd> [detail]')

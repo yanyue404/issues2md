@@ -26,6 +26,8 @@ function getIssues(fetchUrl: string) {
 const exportSimgleIssue = (issues_url: string) => {
   getIssues(issues_url)
     .then((obj: any) => {
+      const dir = 'docs/';
+      !fs.existsSync(dir) && fs.mkdirSync(dir);
       fs.writeFile(
         `docs/${obj.title}.md`,
         formatMarkdown(obj.content),

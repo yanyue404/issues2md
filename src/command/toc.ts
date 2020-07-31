@@ -137,6 +137,8 @@ const exportIssuesBlogToc = (blog_url: string) => {
       });
     }
     let markdown: string = header + sort + content;
+    const dir = 'docs/';
+    !fs.existsSync(dir) && fs.mkdirSync(dir);
     fs.writeFile(`docs/Toc.md`, formatMarkdown(markdown), (err: any) => {
       console.log(err);
     });
