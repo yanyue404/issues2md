@@ -17,8 +17,7 @@ $ npm install github-to-md -g
 Create a folder to store the export results `docs`, Locate to `docs`:
 
 ```sh
-mkdir docs
-cd docs
+mkdir docs && cd docs
 ```
 
 Export Github User Started list as Markdown:
