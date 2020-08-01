@@ -10,10 +10,12 @@ function getAPI(url: string) {
       let html_string = response.data.toString(); // 获取网页内容
       const $ = cheerio.load(html_string); // 传入页面内容
       let obj: any = {};
-      const totalPage = $('.pagination')
-        .find('.current')
-        .data('total-pages');
-      console.log(totalPage);
+      const totalPage: number = Number(
+        $('.pagination')
+          .find('.current')
+          .data('total-pages'),
+      );
+      console.log(`共有 ${totalPage} 页博客`);
       obj.totalPage = Number(totalPage);
       const numbers = $('.states a')
         .eq(0)
@@ -40,7 +42,7 @@ function getAPI(url: string) {
       console.log(error);
     });
 }
-function getAllPageIssues(fetchUrlsArray: any, callback: any) {
+function getAllPageIssues(fetchUrlsArray: string[], callback: Function) {
   let result: any = [];
   Promise.all(
     fetchUrlsArray.map((url: string) => getSimglePageIssuesMessage(url)),
@@ -99,7 +101,7 @@ function getSimglePageIssuesMessage(fetchUrl: string) {
 
 const exportIssuesBlogToc = (blog_url: string) => {
   getAPI(blog_url).then((html: Api) => {
-    let labelsArr: any[] = [];
+    let labelsArr: string[] = [];
     let articles: any = {};
     html.blogs.forEach(v => {
       let label = v.labels[0];
@@ -126,7 +128,7 @@ const exportIssuesBlogToc = (blog_url: string) => {
       content += `<h3>${key}</h3><br>`;
       content += `<ul>`;
 
-      articles[key].forEach((m: any, index: number, arr: any) => {
+      articles[key].forEach((m: string, index: number, arr: any) => {
         content += `<li href="${m}">${m}</li>`;
         if (index === arr.length - 1) {
           content += `<br>`;

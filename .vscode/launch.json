@@ -9,9 +9,10 @@
       "request": "launch",
       "name": "Launch Program",
       "program": "${workspaceFolder}/src/app.ts",
-      "args": ["-p", "\"${workspaceFolder}/tsconfig.json\""],
       "sourceMaps": true,
-      "outFiles": ["${workspaceFolder}/build/**/*.js"]
+      "protocol": "inspector",
+      "trace": "all",
+      "outFiles": ["${workspaceFolder}/bin/**/*.js"]
     }
   ]
 }

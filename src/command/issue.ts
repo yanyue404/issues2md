@@ -4,10 +4,20 @@ import { axios, cheerio, turndownService } from './index';
 
 // 单个博客地址
 
+interface blog {
+  title: string;
+  content: string;
+}
+
+interface Res {
+  data: any;
+}
+
 function getIssues(fetchUrl: string) {
   return axios
     .get(fetchUrl)
-    .then(function(response: any) {
+    .then(function(response: Res) {
+      debugger;
       let html_string = response.data.toString(); // 获取网页内容
       const $ = cheerio.load(html_string); // 传入页面内容
       const title = $('.js-issue-title')
@@ -25,7 +35,7 @@ function getIssues(fetchUrl: string) {
 
 const exportSimgleIssue = (issues_url: string) => {
   getIssues(issues_url)
-    .then((obj: any) => {
+    .then((obj: blog) => {
       const dir = 'docs/';
       !fs.existsSync(dir) && fs.mkdirSync(dir);
       fs.writeFile(

@@ -12,3 +12,10 @@ export interface Api {
   fetchList: string[];
   blogs: Blogs;
 }
+export interface AxiosResponse {
+  data: any;
+  status: number;
+  statusText: string;
+  headers: any;
+  request: any;
+}
