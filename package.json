@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yanyue404/github-export.git"
+    "url": "git+https://github.com/rainbow-design/github-export.git"
   },
   "keywords": [
     "github",
@@ -33,9 +33,9 @@
   "author": "yanyue404",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/yanyue404/github-export/issues"
+    "url": "https://github.com/rainbow-design/github-export/issues"
   },
-  "homepage": "https://github.com/yanyue404/github-export#readme",
+  "homepage": "https://github.com/rainbow-design/github-export#readme",
   "dependencies": {
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
