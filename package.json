@@ -1,6 +1,6 @@
 {
   "name": "github-to-md",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Export Github Issues (for bloggers) to markdown file",
   "main": "app.js",
   "scripts": {

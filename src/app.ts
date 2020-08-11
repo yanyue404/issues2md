@@ -12,18 +12,18 @@ const run = (cmd: string, param: string) => {
   const obj: any = {
     issue: exportSimgleIssue, // github-to-md issue https://github.com/yanyue404/blog/issues/110
     toc: exportIssuesBlogToc, // github-to-md toc https://github.com/yanyue404/blog
-    star: exportGithubUserStared, // github-to-md star yanyue404
-    follow: exportGithubUserFolling, // github-to-md follow yanyue404
+    // star: exportGithubUserStared, // github-to-md star yanyue404
+    // follow: exportGithubUserFolling, // github-to-md follow yanyue404
     articles: exportIssuesBlogArticles, // github-to-md articles https://github.com/yanyue404/blog
   };
   obj[cmd] && obj[cmd](param);
 };
 
 program
-  .version('1.0.0')
-  .description('Export Github (Issues, Stars, Following) to markdown file')
+  .version('1.0.1')
+  .description('Export Github Issues (for bloggers) to markdown file')
   .name('github-to-md')
-  .usage('<issue || toc || star || follow || articles>')
+  .usage('<issue || toc || articles>')
   .arguments('<cmd> [param]')
   .action(function(cmd, param) {
     run(cmd, param);
