@@ -2,7 +2,7 @@
 
 [![NPM version](https://img.shields.io/npm/v/github-to-md.svg?style=flat)](https://www.npmjs.com/package/github-to-md)
 
-Export Github (Issues, Stars, Following) to markdown file
+Export Github Issues (for bloggers) to markdown file
 
 ## Install
 
@@ -18,18 +18,6 @@ Create a folder to store the export results `docs`, Locate to `docs`:
 
 ```sh
 mkdir docs && cd docs
-```
-
-Export Github User Started list as Markdown:
-
-```bash
-github-to-md star [github_userName]
-```
-
-Export Github User following list as Markdown:
-
-```bash
-github-to-md follow [github_userName]
 ```
 
 Export simgle issue as Markdown:

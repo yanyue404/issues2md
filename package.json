@@ -1,7 +1,7 @@
 {
   "name": "github-to-md",
-  "version": "0.7.5",
-  "description": "Export Github (Issues, Stars, Following) to markdown file",
+  "version": "1.0.0",
+  "description": "Export Github Issues (for bloggers) to markdown file",
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
@@ -26,9 +26,7 @@
     "markdown",
     "export",
     "blog",
-    "issue",
-    "star",
-    "follow"
+    "issue"
   ],
   "author": "yanyue404",
   "license": "MIT",

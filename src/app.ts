@@ -20,7 +20,7 @@ const run = (cmd: string, param: string) => {
 };
 
 program
-  .version('0.7.5')
+  .version('1.0.0')
   .description('Export Github (Issues, Stars, Following) to markdown file')
   .name('github-to-md')
   .usage('<issue || toc || star || follow || articles>')
