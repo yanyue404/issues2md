@@ -1,6 +1,6 @@
 # issues2md
 
-[![NPM version](https://img.shields.io/npm/v/issues2md.svg?style=flat)](https://www.npmjs.com/package/issues2md)
+[![NPM version](https://img.shields.io/npm/v/issues2md.svg?style=flat)](https://www.npmjs.com/package/issues2md) ![NPM](https://img.shields.io/npm/l/issues2md)
 
 Export Github Issues (for bloggers) to markdown file
 
