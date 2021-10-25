@@ -1,16 +1,15 @@
 {
-  "name": "github-to-md",
-  "version": "1.0.1",
+  "name": "issues2md",
+  "version": "0.0.1",
   "description": "Export Github Issues (for bloggers) to markdown file",
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
-    "watch": "tsc -w",
-    "dev": "ts-node ./src/app.ts",
-    "build": "tsc",
-    "prepare": "npm run build"
+    "dev": "nodemon -r esm  ./src/app.js",
+    "build": "nodemon -r esm ./src/commander.js",
+    "predev": "kill-port 3000"
   },
-  "bin": "bin/app.js",
+  "bin": "src/app.js",
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
@@ -18,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rainbow-design/github-export.git"
+    "url": "git+https://github.com/rainbow-design/issues2md.git"
   },
   "keywords": [
     "github",
@@ -31,9 +30,9 @@
   "author": "yanyue404",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/rainbow-design/github-export/issues"
+    "url": "https://github.com/rainbow-design/issues2md/issues"
   },
-  "homepage": "https://github.com/rainbow-design/github-export#readme",
+  "homepage": "https://github.com/rainbow-design/issues2md#readme",
   "dependencies": {
     "axios": "^0.19.0",
     "cheerio": "^1.0.0-rc.3",
@@ -42,14 +41,17 @@
     "filenamify": "^4.1.0",
     "markdown-js": "^0.0.4",
     "markdown-table": "^1.1.3",
+    "request": "^2.88.2",
     "turndown": "^5.0.3",
     "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
+    "esm": "^3.2.25",
+    "express": "^4.17.1",
     "husky": "^3.1.0",
+    "kill-port": "^1.6.1",
+    "nodemon": "^2.0.14",
     "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1",
-    "ts-node": "^8.5.4",
-    "typescript": "^3.7.4"
+    "pretty-quick": "^2.0.1"
   }
 }

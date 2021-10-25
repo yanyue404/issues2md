@@ -15,8 +15,8 @@ yarn.lock
 yarn-error.log
 
 # 导出的结果
-docs/2020
-docs/2019
-docs/2018
-docs/2017
-docs/json
+# docs/2020
+# docs/2019
+# docs/2018
+# docs/2017
+# docs/json
