@@ -11,11 +11,9 @@ var request = require('request');
 
 var prettier = require('prettier');
 
-var formatOptions = require('../../.prettierrc.js'); // * 国内代理访问 github , toc 与 articles 命令需要
-// const PROXY = 'http://127.0.0.1:11181';
-// * 不需要代理访问 github
+var formatOptions = require('../../.prettierrc.js');
 
-var PROXY = false; //  数据保存 至 data 文件夹
+var prdConfig = require('../../project.config'); //  数据保存 至 data 文件夹
 
 var saveData_dev = function saveData_dev(data, href, callback) {
   var content = JSON.stringify(data);
@@ -86,11 +84,11 @@ var fetch = function fetch(url) {
   var options = {
     uri: url,
     method: 'GET',
-    timeout: 30,
+    timeout: 30, // 30s 连接超时
   };
-  PROXY &&
+  prdConfig.PROXY &&
     Object.assign(options, {
-      proxy: PROXY,
+      proxy: prdConfig.PROXY,
     });
   return new Promise(function(resolve, reject) {
     request(options, function(error, response, body) {
