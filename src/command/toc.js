@@ -41,7 +41,7 @@ async function getAllPageIssuesInfo(blogRequestURL) {
         if (resp.status == 200 && resp.data.length > 0) {
           console.log(
             `请求得到第 ${pageNo} 页结果，`,
-            '共有' + resp.data.length + '条数据。',
+            '得到 ' + resp.data.length + ' 条数据。',
           );
 
           db_issues.blogsOrigin = db_issues.blogsOrigin.concat(resp.data);

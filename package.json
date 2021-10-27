@@ -1,15 +1,17 @@
 {
   "name": "issues2md",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Export Github Issues (for bloggers) to markdown file",
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "dev": "nodemon -r esm  ./src/app.js",
-    "build": "nodemon -r esm ./src/commander.js",
-    "predev": "kill-port 3000"
+    "predev": "kill-port 3000",
+    "build": "./node_modules/.bin/babel src --out-dir bin"
   },
-  "bin": "src/app.js",
+  "bin": {
+    "issues2md": "./bin/commander.js"
+  },
   "husky": {
     "hooks": {
       "pre-commit": "pretty-quick --staged"
@@ -46,6 +48,11 @@
     "turndown-plugin-gfm": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/cli": "^7.15.7",
+    "@babel/core": "^7.15.8",
+    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
+    "@babel/plugin-transform-runtime": "^7.15.8",
+    "@babel/preset-env": "^7.15.8",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "husky": "^3.1.0",

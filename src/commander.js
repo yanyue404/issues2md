@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import * as commander from 'commander';
 import { exportIssuesBlogToc } from './command/toc';
 import { exportSimgleIssue } from './command/issue';
@@ -15,7 +17,7 @@ const run = (cmd, param) => {
 };
 
 program
-  .version('0.0.1')
+  .version('0.0.2')
   .description('Export Github Issues (for bloggers) to markdown file')
   .name('issues2md')
   .usage('<issue || toc || articles>')

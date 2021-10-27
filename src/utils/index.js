@@ -3,8 +3,10 @@ const request = require('request');
 const prettier = require('prettier');
 const formatOptions = require('../../.prettierrc.js');
 
-// 代理访问
-const PROXY = 'http://127.0.0.1:11181';
+// * 国内代理访问 github , toc 与 articles 命令需要
+// const PROXY = 'http://127.0.0.1:11181';
+// * 不需要代理访问 github
+const PROXY = false;
 
 //  数据保存 至 data 文件夹
 export const saveData_dev = (data, href, callback) => {
@@ -52,20 +54,25 @@ export const githubToken = token => {
 };
 
 // 如何 api 请求墙外网址 https://cnodejs.org/topic/5af24e62adea947348e761ec
-export const fetch = (url, config = { proxy: true }) => {
+// https://www.npmjs.com/package/request
+export const fetch = (url, config = {}) => {
+  const options = {
+    uri: url,
+    method: 'GET',
+    timeout: 30, // 30s 连接超时
+  };
+
+  PROXY && Object.assign(options, { proxy: PROXY });
+
   return new Promise((resolve, reject) => {
-    request(
-      {
-        url: url,
-        proxy: PROXY,
-      },
-      function(err, resp, body) {
-        if (!err) {
-          resolve(body);
-        } else {
-          reject(err);
-        }
-      },
-    );
+    request(options, function(error, response, body) {
+      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
+      if (!err) {
+        resolve(body);
+      } else {
+        reject(err);
+        console.error('error:', error); // Print the error if one occurred
+      }
+    });
   });
 };
