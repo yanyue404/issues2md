@@ -44,6 +44,16 @@ Export Github Blog issues as Markdown:
 issues2md articles <blog_URL>
 ```
 
+## Contribution
+
+```sh
+$ git clone https://github.com/rainbow-design/issues2md.git
+
+$ cd issues2md
+
+$ npm link
+```
+
 ## License
 
 MIT

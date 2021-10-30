@@ -3,7 +3,7 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports.turndownService = exports.saveData_dev = exports.readData_dev = exports.prettierFormatMarkdown = exports.createFile = exports.addZero = void 0;
+exports.turndownService = exports.saveData_dev = exports.readData_dev = exports.prettierFormatMarkdown = exports.formatTime = exports.createFile = exports.addZero = void 0;
 
 var fs = require('fs');
 
@@ -19,11 +19,21 @@ var formatOptions = require('../../.prettierrc.js'); // Convert HTML into Markdo
 var turndownService = new TurndownService({
   headingStyle: 'atx',
   bulletListMarker: '-',
-}); // 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
+}); // 确定要保留哪些元素并将其呈现为 HTML。
 
 exports.turndownService = turndownService;
+turndownService.keep(['summary']); // 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
+
 var gfm = turndownPluginGfm.gfm;
-turndownService.use(gfm);
+turndownService.use(gfm); // 支持 details 渲染为标签，内部为 markdown
+
+turndownService.addRule('strikethrough', {
+  filter: 'details',
+  replacement: function replacement(content, node, options) {
+    // prettier-ignore
+    return '\<details\>' + content + "\</details\>";
+  },
+});
 
 var prettierFormatMarkdown = function prettierFormatMarkdown(markdown) {
   return prettier.format(
@@ -64,11 +74,34 @@ var readData_dev = function readData_dev(href, callback) {
 
 exports.readData_dev = readData_dev;
 
-var addZero = function addZero(num, length) {
+var addZero = function addZero(num) {
+  var length =
+    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 2;
   return (Array(length).join('0') + num).slice(-length);
 };
 
 exports.addZero = addZero;
+
+var formatNumber = function formatNumber(n) {
+  n = n.toString();
+  return n[1] ? n : '0' + n;
+};
+
+var formatTime = function formatTime(date) {
+  var year = date.getFullYear();
+  var month = date.getMonth() + 1;
+  var day = date.getDate();
+  var hour = date.getHours();
+  var minute = date.getMinutes();
+  var second = date.getSeconds();
+  return (
+    [year, month, day].map(formatNumber).join('-') +
+    ' ' +
+    [hour, minute, second].map(formatNumber).join(':')
+  );
+};
+
+exports.formatTime = formatTime;
 
 var createFile = function createFile(fileDirectory, fileName, content) {
   // 判断文件夹路径是否存在

@@ -11,9 +11,21 @@ export const turndownService = new TurndownService({
   bulletListMarker: '-',
 });
 
+// 确定要保留哪些元素并将其呈现为 HTML。
+turndownService.keep(['summary']);
+
 // 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
 const gfm = turndownPluginGfm.gfm;
 turndownService.use(gfm);
+
+// 支持 details 渲染为标签，内部为 markdown
+turndownService.addRule('strikethrough', {
+  filter: 'details',
+  replacement: function(content, node, options) {
+    // prettier-ignore
+    return '\<details\>' + content + "\</details\>";
+  },
+});
 
 export const prettierFormatMarkdown = markdown => {
   return prettier.format(
@@ -47,8 +59,28 @@ export const readData_dev = (href, callback) => {
   }
 };
 
-export const addZero = (num, length) => {
+export const addZero = (num, length = 2) => {
   return (Array(length).join('0') + num).slice(-length);
+};
+
+const formatNumber = n => {
+  n = n.toString();
+  return n[1] ? n : '0' + n;
+};
+
+export const formatTime = date => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const hour = date.getHours();
+  const minute = date.getMinutes();
+  const second = date.getSeconds();
+
+  return (
+    [year, month, day].map(formatNumber).join('-') +
+    ' ' +
+    [hour, minute, second].map(formatNumber).join(':')
+  );
 };
 
 export const createFile = (fileDirectory, fileName, content) => {

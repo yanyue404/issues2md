@@ -146,7 +146,7 @@ var IssuesInfoToToc = function IssuesInfoToToc(result) {
     }
   }); // '-[npm&yarn](https://github.com/yanyue404/blog/issues/7)[开发者笔记]'
 
-  var header = '<h1>TOC</h1><br>';
+  var header = '<h2>目录</h2><br>';
   var sort = '<h2>\u5206\u7C7B</h2><br>';
   sort += '<ul>';
   labelsArr.forEach(function(category) {
@@ -170,8 +170,14 @@ var IssuesInfoToToc = function IssuesInfoToToc(result) {
     content += '</ul>';
   }
 
+  var detailsStart = '<details open>\n  <summary>Update time: '.concat(
+    (0, _utils.formatTime)(new Date()),
+    ' by <a href="https://github.com/rainbow-design/issues2md">issues2md</a> :sunflower:</summary>',
+  );
+  var detailsEnd = ' </details>';
+
   var markdown = _utils.turndownService.turndown(
-    '<body>' + header + sort + content + '</body>',
+    '<body>' + header + detailsStart + sort + content + detailsEnd + '</body>',
   );
 
   var dir = 'docs/';

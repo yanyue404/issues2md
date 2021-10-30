@@ -1,6 +1,6 @@
 const fs = require('fs');
 const axios = require('axios');
-import { prettierFormatMarkdown, turndownService } from '../utils';
+import { prettierFormatMarkdown, turndownService, formatTime } from '../utils';
 
 process.on('uncaughtException', function(err) {
   console.log(err.stack);
@@ -91,7 +91,7 @@ const IssuesInfoToToc = result => {
     }
   });
   // '-[npm&yarn](https://github.com/yanyue404/blog/issues/7)[开发者笔记]'
-  const header = '<h1>TOC</h1><br>';
+  const header = '<h2>目录</h2><br>';
   let sort = `<h2>分类</h2><br>`;
   sort += `<ul>`;
   labelsArr.forEach(category => {
@@ -110,8 +110,15 @@ const IssuesInfoToToc = result => {
     });
     content += `</ul>`;
   }
+  let detailsStart = `<details open>
+  <summary>Update time: ${formatTime(
+    new Date(),
+  )} by <a href="https://github.com/rainbow-design/issues2md">issues2md</a> :sunflower:</summary>`;
+
+  let detailsEnd = ` </details>`;
+
   let markdown = turndownService.turndown(
-    '<body>' + header + sort + content + '</body>',
+    '<body>' + header + detailsStart + sort + content + detailsEnd + '</body>',
   );
   const dir = 'docs/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
