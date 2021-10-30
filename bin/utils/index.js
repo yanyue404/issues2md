@@ -3,30 +3,66 @@
 Object.defineProperty(exports, '__esModule', {
   value: true,
 });
-exports.saveData_dev = exports.githubToken = exports.formatMarkdown = exports.fetch = exports.createFile = exports.addZero = void 0;
+exports.turndownService = exports.saveData_dev = exports.readData_dev = exports.prettierFormatMarkdown = exports.createFile = exports.addZero = void 0;
 
 var fs = require('fs');
 
-var request = require('request');
-
 var prettier = require('prettier');
 
-var formatOptions = require('../../.prettierrc.js');
+var TurndownService = require('turndown');
 
-var prdConfig = require('../../project.config'); //  数据保存 至 data 文件夹
+var turndownPluginGfm = require('turndown-plugin-gfm');
+
+var formatOptions = require('../../.prettierrc.js'); // Convert HTML into Markdown with JavaScript.
+// Usage: var markdown = turndownService.turndown('<h1>Hello world!</h1>')
+
+var turndownService = new TurndownService({
+  headingStyle: 'atx',
+  bulletListMarker: '-',
+}); // 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
+
+exports.turndownService = turndownService;
+var gfm = turndownPluginGfm.gfm;
+turndownService.use(gfm);
+
+var prettierFormatMarkdown = function prettierFormatMarkdown(markdown) {
+  return prettier.format(
+    markdown,
+    Object.assign(Object.assign({}, formatOptions), {
+      parser: 'markdown',
+    }),
+  );
+}; //  数据保存 至 db 文件夹
+
+exports.prettierFormatMarkdown = prettierFormatMarkdown;
 
 var saveData_dev = function saveData_dev(data, href, callback) {
   var content = JSON.stringify(data);
-  var dir = 'docs/json/';
+  var dir = 'db/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
-  fs.writeFile('docs/json/' + href, content, function(err) {
+  fs.writeFile('db/' + href, content, function(err) {
     if (err) throw err;
     callback && callback();
     console.log(''.concat(href, ' saved successful!'));
   });
-};
+}; // 读取数据从 db 文件夹
 
 exports.saveData_dev = saveData_dev;
+
+var readData_dev = function readData_dev(href, callback) {
+  var readFileURL = 'db/' + href;
+
+  if (fs.existsSync(readFileURL)) {
+    fs.readFile(readFileURL, 'utf8', function(err, data) {
+      if (err) console.log(err);
+      callback(data);
+    });
+  } else {
+    console.log('not find ' + readFileURL);
+  }
+};
+
+exports.readData_dev = readData_dev;
 
 var addZero = function addZero(num, length) {
   return (Array(length).join('0') + num).slice(-length);
@@ -59,49 +95,3 @@ var createFile = function createFile(fileDirectory, fileName, content) {
 };
 
 exports.createFile = createFile;
-
-var formatMarkdown = function formatMarkdown(markdown) {
-  return prettier.format(
-    markdown,
-    Object.assign(Object.assign({}, formatOptions), {
-      parser: 'markdown',
-    }),
-  );
-};
-
-exports.formatMarkdown = formatMarkdown;
-
-var githubToken = function githubToken(token) {
-  return Buffer.from(token, 'base64').toString();
-}; // 如何 api 请求墙外网址 https://cnodejs.org/topic/5af24e62adea947348e761ec
-// https://www.npmjs.com/package/request
-
-exports.githubToken = githubToken;
-
-var fetch = function fetch(url) {
-  var config =
-    arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-  var options = {
-    uri: url,
-    method: 'GET',
-    timeout: 30, // 30s 连接超时
-  };
-  prdConfig.PROXY &&
-    Object.assign(options, {
-      proxy: prdConfig.PROXY,
-    });
-  return new Promise(function(resolve, reject) {
-    request(options, function(error, response, body) {
-      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err);
-        console.error('error:', error); // Print the error if one occurred
-      }
-    });
-  });
-};
-
-exports.fetch = fetch;

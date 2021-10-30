@@ -15,11 +15,11 @@ var _asyncToGenerator2 = _interopRequireDefault(
   require('@babel/runtime/helpers/asyncToGenerator'),
 );
 
-var _index = require('./index');
-
 var _utils = require('../utils');
 
 var fs = require('fs');
+
+var axios = require('axios');
 
 process.on('uncaughtException', function(err) {
   console.log(err.stack);
@@ -74,39 +74,37 @@ function _getAllPageIssuesInfo() {
               };
 
               loopRequest = function loopRequest(callback) {
-                _index.axios
-                  .get(createSingleRequestURL(pageNo))
-                  .then(function(resp) {
-                    if (resp.status == 200 && resp.data.length > 0) {
-                      console.log(
-                        '\u8BF7\u6C42\u5F97\u5230\u7B2C '.concat(
-                          pageNo,
-                          ' \u9875\u7ED3\u679C\uFF0C',
-                        ),
-                        '得到 ' + resp.data.length + ' 条数据。',
-                      );
-                      db_issues.blogsOrigin = db_issues.blogsOrigin.concat(
-                        resp.data,
-                      ); // 下一页
+                axios.get(createSingleRequestURL(pageNo)).then(function(resp) {
+                  if (resp.status == 200 && resp.data.length > 0) {
+                    console.log(
+                      '\u8BF7\u6C42\u5F97\u5230\u7B2C '.concat(
+                        pageNo,
+                        ' \u9875\u7ED3\u679C\uFF0C',
+                      ),
+                      '得到 ' + resp.data.length + ' 条数据。',
+                    );
+                    db_issues.blogsOrigin = db_issues.blogsOrigin.concat(
+                      resp.data,
+                    ); // 下一页
 
-                      if (resp.data.length == 100) {
-                        pageNo++;
-                        setTimeout(function() {
-                          loopRequest(callback);
-                        }, 1500);
-                      }
-
-                      if (resp.data.length > 0 && resp.data.length < 100) {
-                        console.log(
-                          '结果出来了',
-                          '共有' + db_issues.blogsOrigin.length + '条',
-                        );
-                        callback(db_issues);
-                      }
-                    } else {
-                      console.log('Error: 没有数据或请求出错！');
+                    if (resp.data.length == 100) {
+                      pageNo++;
+                      setTimeout(function() {
+                        loopRequest(callback);
+                      }, 1500);
                     }
-                  });
+
+                    if (resp.data.length > 0 && resp.data.length < 100) {
+                      console.log(
+                        '结果出来了',
+                        '共有' + db_issues.blogsOrigin.length + '条',
+                      );
+                      callback(db_issues);
+                    }
+                  } else {
+                    console.log('Error: 没有数据或请求出错！');
+                  }
+                });
               };
 
               return _context2.abrupt(
@@ -172,13 +170,16 @@ var IssuesInfoToToc = function IssuesInfoToToc(result) {
     content += '</ul>';
   }
 
-  var markdown = _index.turndownService.turndown(
+  var markdown = _utils.turndownService.turndown(
     '<body>' + header + sort + content + '</body>',
   );
 
   var dir = 'docs/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
-  var TocContent = (0, _utils.formatMarkdown)(markdown).replace(/\\/g, '');
+  var TocContent = (0, _utils.prettierFormatMarkdown)(markdown).replace(
+    /\\/g,
+    '',
+  );
   fs.writeFile('docs/Toc.md', TocContent, function(err) {
     if (err) throw err;
     console.log('The file has been saved!');

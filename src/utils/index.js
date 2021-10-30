@@ -1,19 +1,50 @@
 const fs = require('fs');
-const request = require('request');
 const prettier = require('prettier');
+const TurndownService = require('turndown');
+const turndownPluginGfm = require('turndown-plugin-gfm');
 const formatOptions = require('../../.prettierrc.js');
-const prdConfig = require('../../project.config');
 
-//  数据保存 至 data 文件夹
+// Convert HTML into Markdown with JavaScript.
+// Usage: var markdown = turndownService.turndown('<h1>Hello world!</h1>')
+export const turndownService = new TurndownService({
+  headingStyle: 'atx',
+  bulletListMarker: '-',
+});
+
+// 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
+const gfm = turndownPluginGfm.gfm;
+turndownService.use(gfm);
+
+export const prettierFormatMarkdown = markdown => {
+  return prettier.format(
+    markdown,
+    Object.assign(Object.assign({}, formatOptions), { parser: 'markdown' }),
+  );
+};
+
+//  数据保存 至 db 文件夹
 export const saveData_dev = (data, href, callback) => {
   const content = JSON.stringify(data);
-  const dir = 'docs/json/';
+  const dir = 'db/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
-  fs.writeFile('docs/json/' + href, content, err => {
+  fs.writeFile('db/' + href, content, err => {
     if (err) throw err;
     callback && callback();
     console.log(`${href} saved successful!`);
   });
+};
+
+// 读取数据从 db 文件夹
+export const readData_dev = (href, callback) => {
+  let readFileURL = 'db/' + href;
+  if (fs.existsSync(readFileURL)) {
+    fs.readFile(readFileURL, 'utf8', function(err, data) {
+      if (err) console.log(err);
+      callback(data);
+    });
+  } else {
+    console.log('not find ' + readFileURL);
+  }
 };
 
 export const addZero = (num, length) => {
@@ -36,39 +67,4 @@ export const createFile = (fileDirectory, fileName, content) => {
       });
     });
   }
-};
-
-export const formatMarkdown = markdown => {
-  return prettier.format(
-    markdown,
-    Object.assign(Object.assign({}, formatOptions), { parser: 'markdown' }),
-  );
-};
-
-export const githubToken = token => {
-  return Buffer.from(token, 'base64').toString();
-};
-
-// 如何 api 请求墙外网址 https://cnodejs.org/topic/5af24e62adea947348e761ec
-// https://www.npmjs.com/package/request
-export const fetch = (url, config = {}) => {
-  const options = {
-    uri: url,
-    method: 'GET',
-    timeout: 30, // 30s 连接超时
-  };
-
-  prdConfig.PROXY && Object.assign(options, { proxy: prdConfig.PROXY });
-
-  return new Promise((resolve, reject) => {
-    request(options, function(error, response, body) {
-      console.log('statusCode:', response && response.statusCode); // Print the response status code if a response was received
-      if (!err) {
-        resolve(body);
-      } else {
-        reject(err);
-        console.error('error:', error); // Print the error if one occurred
-      }
-    });
-  });
 };

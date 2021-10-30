@@ -1,20 +1,20 @@
-const fs = require('fs');
 const cheerio = require('cheerio');
 const filenamify = require('filenamify');
-const TurndownService = require('turndown');
-const turndownPluginGfm = require('turndown-plugin-gfm');
-const config = require('../../config/config.json');
-const turndownService = new TurndownService({
-  headingStyle: 'atx',
-  bulletListMarker: '-',
-});
-const gfm = turndownPluginGfm.gfm;
-turndownService.use(gfm);
-import { saveData_dev, createFile, addZero, fetch } from '../utils';
+const prdConfig = require('../../project.config');
+import { _get } from '../http';
+import {
+  saveData_dev,
+  readData_dev,
+  createFile,
+  addZero,
+  turndownService,
+} from '../utils';
+
+let BLOG_URL = '';
 
 function getAPI(blogURL) {
   return new Promise(resolve => {
-    fetch(blogURL + '/issues').then(function(html_string) {
+    _get(blogURL + '/issues').then(function(html_string) {
       const $ = cheerio.load(html_string); // 传入页面内容
       let obj = {};
       const totalPage = $('.pagination')
@@ -31,7 +31,7 @@ function getAPI(blogURL) {
       let urlList = [];
       for (let i = totalPage; i > 0; i--) {
         urlList[totalPage - i] =
-          config.github.blog + '/issues?page=' + i + ' is:issue is:open';
+          BLOG_URL + '/issues?page=' + i + ' is:issue is:open';
       }
       obj.fetchList = urlList;
       // 获取所有  Issues 数据,再返回
@@ -46,6 +46,7 @@ function getAPI(blogURL) {
     console.log(error);
   });
 }
+
 function _getAllPageIssues(fetchUrlsArray, callback) {
   let result = [];
   Promise.all(fetchUrlsArray.map(url => _getSimglePageIssuesMessage(url)))
@@ -62,8 +63,9 @@ function _getAllPageIssues(fetchUrlsArray, callback) {
       console.log(err);
     });
 }
+
 function _getSimglePageIssuesMessage(fetchUrl) {
-  return fetch(fetchUrl)
+  return _get(fetchUrl)
     .then(function(html_string) {
       const $ = cheerio.load(html_string); // 传入页面内容
       let list_array = [];
@@ -99,11 +101,10 @@ function _getSimglePageIssuesMessage(fetchUrl) {
       console.log(error);
     });
 }
+
 function exportAllMarkdown() {
-  let SETING_FILE = 'docs/json/api.json';
-  if (fs.existsSync(SETING_FILE)) {
-    fs.readFile(SETING_FILE, 'utf8', function(err, data) {
-      if (err) console.log(err);
+  readData_dev('api.json', data => {
+    try {
       const issues = JSON.parse(data).blogs;
       // 导出
       issues.forEach(issue => {
@@ -113,19 +114,20 @@ function exportAllMarkdown() {
           console.log('导出出问题:', { issue });
         }
       });
-    });
-  } else {
-    console.log('not find ' + SETING_FILE);
-  }
+    } catch (error) {
+      console.log('exportAllMarkdown get error:', error);
+    }
+  });
 }
+
 function _singleMarkdownFileExport(name, issuesID) {
   let fileName = filenamify(name);
-  const exportByYear = config.year;
+  const exportByYear = prdConfig.year;
   const fileDirectory = exportByYear
     ? 'docs/' + fileName.slice(0, 4) + '/'
     : 'docs/';
-  let url = config.github.blog + '/issues/' + issuesID; // 拼接请求的页面链接
-  return fetch(url)
+  let url = BLOG_URL + '/issues/' + issuesID; // 拼接请求的页面链接
+  return _get(url)
     .then(function(html_string) {
       const $ = cheerio.load(html_string); // 传入页面内容
       const content = turndownService.turndown($('table').html());
@@ -136,9 +138,10 @@ function _singleMarkdownFileExport(name, issuesID) {
     );
 }
 const exportIssuesBlogArticles = blog_url => {
+  BLOG_URL = blog_url;
   let promise = getAPI(blog_url); // 发起抓取
   promise.then(response => {
-    console.log('kaishi -----');
+    console.log('开始导出 -----');
     exportAllMarkdown();
   });
 };

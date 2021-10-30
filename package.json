@@ -1,13 +1,14 @@
 {
   "name": "issues2md",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Export Github Issues (for bloggers) to markdown file",
   "main": "app.js",
   "scripts": {
     "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
     "dev": "nodemon -r esm  ./src/app.js",
     "predev": "kill-port 3000",
-    "build": "./node_modules/.bin/babel src --out-dir bin"
+    "build": "./node_modules/.bin/babel src --out-dir bin",
+    "sh": "sh build.sh"
   },
   "bin": {
     "issues2md": "./bin/commander.js"

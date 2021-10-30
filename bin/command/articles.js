@@ -5,30 +5,21 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.exportIssuesBlogArticles = void 0;
 
-var _utils = require('../utils');
+var _http = require('../http');
 
-var fs = require('fs');
+var _utils = require('../utils');
 
 var cheerio = require('cheerio');
 
 var filenamify = require('filenamify');
 
-var TurndownService = require('turndown');
+var prdConfig = require('../../project.config');
 
-var turndownPluginGfm = require('turndown-plugin-gfm');
-
-var config = require('../../config/config.json');
-
-var turndownService = new TurndownService({
-  headingStyle: 'atx',
-  bulletListMarker: '-',
-});
-var gfm = turndownPluginGfm.gfm;
-turndownService.use(gfm);
+var BLOG_URL = '';
 
 function getAPI(blogURL) {
   return new Promise(function(resolve) {
-    (0, _utils.fetch)(blogURL + '/issues').then(function(html_string) {
+    (0, _http._get)(blogURL + '/issues').then(function(html_string) {
       var $ = cheerio.load(html_string); // 传入页面内容
 
       var obj = {};
@@ -47,7 +38,7 @@ function getAPI(blogURL) {
 
       for (var i = totalPage; i > 0; i--) {
         urlList[totalPage - i] =
-          config.github.blog + '/issues?page=' + i + ' is:issue is:open';
+          BLOG_URL + '/issues?page=' + i + ' is:issue is:open';
       }
 
       obj.fetchList = urlList; // 获取所有  Issues 数据,再返回
@@ -87,7 +78,7 @@ function _getAllPageIssues(fetchUrlsArray, callback) {
 }
 
 function _getSimglePageIssuesMessage(fetchUrl) {
-  return (0, _utils.fetch)(fetchUrl)
+  return (0, _http._get)(fetchUrl)
     .then(function(html_string) {
       var $ = cheerio.load(html_string); // 传入页面内容
 
@@ -126,11 +117,8 @@ function _getSimglePageIssuesMessage(fetchUrl) {
 }
 
 function exportAllMarkdown() {
-  var SETING_FILE = 'docs/json/api.json';
-
-  if (fs.existsSync(SETING_FILE)) {
-    fs.readFile(SETING_FILE, 'utf8', function(err, data) {
-      if (err) console.log(err);
+  (0, _utils.readData_dev)('api.json', function(data) {
+    try {
       var issues = JSON.parse(data).blogs; // 导出
 
       issues.forEach(function(issue) {
@@ -142,25 +130,26 @@ function exportAllMarkdown() {
           });
         }
       });
-    });
-  } else {
-    console.log('not find ' + SETING_FILE);
-  }
+    } catch (error) {
+      console.log('exportAllMarkdown get error:', error);
+    }
+  });
 }
 
 function _singleMarkdownFileExport(name, issuesID) {
   var fileName = filenamify(name);
-  var exportByYear = config.year;
+  var exportByYear = prdConfig.year;
   var fileDirectory = exportByYear
     ? 'docs/' + fileName.slice(0, 4) + '/'
     : 'docs/';
-  var url = config.github.blog + '/issues/' + issuesID; // 拼接请求的页面链接
+  var url = BLOG_URL + '/issues/' + issuesID; // 拼接请求的页面链接
 
-  return (0, _utils.fetch)(url)
+  return (0, _http._get)(url)
     .then(function(html_string) {
       var $ = cheerio.load(html_string); // 传入页面内容
 
-      var content = turndownService.turndown($('table').html());
+      var content = _utils.turndownService.turndown($('table').html());
+
       (0, _utils.createFile)(fileDirectory, fileName + '.md', content);
     })
     ['catch'](function(error) {
@@ -171,10 +160,11 @@ function _singleMarkdownFileExport(name, issuesID) {
 }
 
 var exportIssuesBlogArticles = function exportIssuesBlogArticles(blog_url) {
+  BLOG_URL = blog_url;
   var promise = getAPI(blog_url); // 发起抓取
 
   promise.then(function(response) {
-    console.log('kaishi -----');
+    console.log('开始导出 -----');
     exportAllMarkdown();
   });
 };

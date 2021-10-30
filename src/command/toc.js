@@ -1,6 +1,6 @@
 const fs = require('fs');
-import { axios, turndownService } from './index';
-import { formatMarkdown } from '../utils';
+const axios = require('axios');
+import { prettierFormatMarkdown, turndownService } from '../utils';
 
 process.on('uncaughtException', function(err) {
   console.log(err.stack);
@@ -115,7 +115,7 @@ const IssuesInfoToToc = result => {
   );
   const dir = 'docs/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
-  const TocContent = formatMarkdown(markdown).replace(/\\/g, '');
+  const TocContent = prettierFormatMarkdown(markdown).replace(/\\/g, '');
   fs.writeFile(`docs/Toc.md`, TocContent, err => {
     if (err) throw err;
     console.log('The file has been saved!');

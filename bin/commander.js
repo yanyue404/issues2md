@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+// https://stackoverflow.com/questions/35387264/node-js-request-module-getting-etimedout-and-esockettimedout
 'use strict';
 
 var _typeof = require('@babel/runtime/helpers/typeof');
@@ -58,6 +59,7 @@ function _interopRequireWildcard(obj, nodeInterop) {
   return newObj;
 }
 
+process.env.UV_THREADPOOL_SIZE = 128;
 var program = new commander.Command();
 
 var run = function run(cmd, param) {
@@ -68,11 +70,20 @@ var run = function run(cmd, param) {
     // issues2md toc https://github.com/yanyue404/blog
     articles: _articles.exportIssuesBlogArticles, // issues2md articles https://github.com/yanyue404/blog
   };
-  obj[cmd] && obj[cmd](param);
+
+  if (['issue', 'toc', 'articles'].includes(cmd)) {
+    if (param && /https:\/\/github.com\/*/.test(param)) {
+      obj[cmd](param);
+    } else {
+      console.error('[' + param + ']' + ' link address is not standardized!');
+    }
+  } else {
+    console.error('[' + cmd + ']' + ' cmmand not Support!');
+  }
 };
 
 program
-  .version('0.0.2')
+  .version('0.0.5')
   .description('Export Github Issues (for bloggers) to markdown file')
   .name('issues2md')
   .usage('<issue || toc || articles>')

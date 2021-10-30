@@ -5,19 +5,18 @@ Object.defineProperty(exports, '__esModule', {
 });
 exports.exportSimgleIssue = void 0;
 
-var _utils = require('../utils');
+var _http = require('../http');
 
-var _index = require('./index');
+var _utils = require('../utils');
 
 var fs = require('fs');
 
-function getIssues(fetchUrl) {
-  return _index.axios
-    .get(fetchUrl)
-    .then(function(response) {
-      var html_string = response.data.toString(); // 获取网页内容
+var cheerio = require('cheerio');
 
-      var $ = _index.cheerio.load(html_string); // 传入页面内容
+function getIssues(fetchUrl) {
+  return (0, _http._get)(fetchUrl)
+    .then(function(response) {
+      var $ = cheerio.load(response); // 传入页面内容
 
       var title = $('.js-issue-title')
         .eq(0)
@@ -25,7 +24,7 @@ function getIssues(fetchUrl) {
         .trimStart()
         .trimEnd();
 
-      var content = _index.turndownService.turndown($('table').html());
+      var content = _utils.turndownService.turndown($('table').html());
 
       return {
         title: title,
@@ -44,7 +43,7 @@ var exportSimgleIssue = function exportSimgleIssue(issues_url) {
       !fs.existsSync(dir) && fs.mkdirSync(dir);
       fs.writeFile(
         'docs/'.concat(obj.title, '.md'),
-        (0, _utils.formatMarkdown)(obj.content),
+        (0, _utils.prettierFormatMarkdown)(obj.content),
         function(err) {
           if (err) throw err;
           console.log('The file has been saved!');

@@ -1,12 +1,12 @@
 const fs = require('fs');
-import { formatMarkdown } from '../utils';
-import { axios, cheerio, turndownService } from './index';
+const cheerio = require('cheerio');
+import { _get } from '../http';
+import { prettierFormatMarkdown, turndownService } from '../utils';
+
 function getIssues(fetchUrl) {
-  return axios
-    .get(fetchUrl)
+  return _get(fetchUrl)
     .then(function(response) {
-      let html_string = response.data.toString(); // 获取网页内容
-      const $ = cheerio.load(html_string); // 传入页面内容
+      const $ = cheerio.load(response); // 传入页面内容
       const title = $('.js-issue-title')
         .eq(0)
         .text()
@@ -24,10 +24,14 @@ const exportSimgleIssue = issues_url => {
     .then(obj => {
       const dir = 'docs/';
       !fs.existsSync(dir) && fs.mkdirSync(dir);
-      fs.writeFile(`docs/${obj.title}.md`, formatMarkdown(obj.content), err => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      });
+      fs.writeFile(
+        `docs/${obj.title}.md`,
+        prettierFormatMarkdown(obj.content),
+        err => {
+          if (err) throw err;
+          console.log('The file has been saved!');
+        },
+      );
     })
     .catch(err => {
       console.log(err);
