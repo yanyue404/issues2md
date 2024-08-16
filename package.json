@@ -4,10 +4,14 @@
   "description": "Export Github Issues (for bloggers) to markdown file",
   "main": "app.js",
   "scripts": {
-    "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
-    "dev": "nodemon -r esm  ./src/app.js",
     "predev": "kill-port 3000",
+    "dev": "nodemon -r esm  ./src/app.js",
+    "dev:toc": "npm run dev toc https://github.com/yanyue404/blog",
+    "dev:issue": "npm run dev issue https://github.com/yanyue404/blog/issues/270",
+    "dev:articles": "npm run dev articles https://github.com/yanyue404/blog",
     "build": "./node_modules/.bin/babel src --out-dir bin",
+    "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
+    "test": "npm run dev toc https://github.com/woai3c/Front-end-articles",
     "sh": "sh build.sh"
   },
   "bin": {
@@ -37,11 +41,12 @@
   },
   "homepage": "https://github.com/rainbow-design/issues2md#readme",
   "dependencies": {
-    "axios": "^0.19.0",
-    "cheerio": "^1.0.0-rc.3",
+    "axios": "0.19.0",
+    "cheerio": "1.0.0-rc.3",
     "commander": "^6.0.0",
     "filenamify": "^4.1.0",
-    "request": "^2.88.2",
+    "minimist": "^1.2.8",
+    "request": "2.88.2",
     "turndown": "^5.0.3",
     "turndown-plugin-gfm": "^1.0.2"
   },

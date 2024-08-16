@@ -20,6 +20,8 @@ function getIssues(fetchUrl) {
     });
 }
 const exportSimgleIssue = issues_url => {
+  console.log('fetch issues_url: ', issues_url);
+
   getIssues(issues_url)
     .then(obj => {
       const dir = 'docs/';

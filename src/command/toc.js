@@ -23,6 +23,8 @@ process.on('SIGINT', function() {
 
 let db_issues = {};
 
+let blogName = 'Toc';
+
 // https://github.com/yanyue404/blog
 async function getAllPageIssuesInfo(blogRequestURL) {
   if (blogRequestURL && blogRequestURL.split('https://github.com/')[1]) {
@@ -113,7 +115,7 @@ const IssuesInfoToToc = result => {
   let detailsStart = `<details open>
   <summary>Update time: ${formatTime(
     new Date(),
-  )} by <a href="https://github.com/rainbow-design/issues2md">issues2md</a> :sunflower:</summary>`;
+  )} by <a href="https://github.com/yanyue404/issues2md">issues2md</a> :sunflower:</summary>`;
 
   let detailsEnd = ` </details>`;
 
@@ -123,7 +125,7 @@ const IssuesInfoToToc = result => {
   const dir = 'docs/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
   const TocContent = prettierFormatMarkdown(markdown).replace(/\\/g, '');
-  fs.writeFile(`docs/Toc.md`, TocContent, err => {
+  fs.writeFile(`docs/${blogName}.md`, TocContent, err => {
     if (err) throw err;
     console.log('The file has been saved!');
     db_issues = {};
@@ -131,6 +133,11 @@ const IssuesInfoToToc = result => {
 };
 
 const exportIssuesBlogToc = async fetch_url => {
+  if (!fetch_url) {
+    throw new Error('请输入正确的地址！');
+  }
+
+  blogName = fetch_url.split('https://github.com/')[1].replace('/', '@');
   const result = await getAllPageIssuesInfo(fetch_url);
   result.blogs = result.blogsOrigin.map(o => {
     return {

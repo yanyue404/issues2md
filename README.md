@@ -14,18 +14,6 @@ $ npm install issues2md -g
 
 ## Usage
 
-Configure network proxy access (**Off by default**) , **project.config.js** .
-
-```js
-module.exports = {
-  // * 国内代理访问 github , toc 与 articles 命令需要
-  // PROXY: 'http://127.0.0.1:11181',
-
-  // * 不需要代理访问 github
-  PROXY: false,
-};
-```
-
 Export simgle issue as Markdown:
 
 ```bash
@@ -44,14 +32,13 @@ Export Github Blog issues as Markdown:
 issues2md articles <blog_URL>
 ```
 
-## Contribution
+## Proxy
 
-```sh
-$ git clone https://github.com/rainbow-design/issues2md.git
+If needed configure network proxy access (**Terminal Agent**)
 
-$ cd issues2md
-
-$ npm link
+```bash
+# use git bash
+export https_proxy=http://127.0.0.1:33210 http_proxy=http://127.0.0.1:33210
 ```
 
 ## License
