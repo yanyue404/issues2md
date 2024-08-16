@@ -41,7 +41,7 @@
   },
   "homepage": "https://github.com/rainbow-design/issues2md#readme",
   "dependencies": {
-    "axios": "0.19.0",
+    "axios": "0.28.0",
     "cheerio": "1.0.0-rc.3",
     "commander": "^6.0.0",
     "filenamify": "^4.1.0",
