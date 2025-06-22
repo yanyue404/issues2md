@@ -80,16 +80,26 @@ async function getAllPageIssuesInfo(blogRequestURL) {
 }
 
 const IssuesInfoToToc = result => {
+  // 生成年月角标的辅助函数 - 文章目录使用彩色角标
+  const generateDateBadge = createdAt => {
+    const createDate = new Date(createdAt);
+    const year = createDate.getFullYear();
+    const month = (createDate.getMonth() + 1).toString().padStart(2, '0');
+    return `<span style="background: #e1f5fe; color: #0277bd; padding: 2px 6px; border-radius: 10px; font-size: 0.8em;">${year}-${month}</span>`;
+  };
+
   let labelsArr = [];
   let articles = {};
   result.blogs.forEach(v => {
     let label = v.labels[0];
+    const dateBadge = generateDateBadge(v.created_at);
+
     if (!labelsArr.includes(label)) {
       labelsArr.push(label);
       articles[label] = [];
-      articles[label].push(`[${v.title}](${v.url})`);
+      articles[label].push(`[${v.title}](${v.url}) ${dateBadge}`);
     } else {
-      articles[label].push(`[${v.title}](${v.url})`);
+      articles[label].push(`[${v.title}](${v.url}) ${dateBadge}`);
     }
   });
   // '-[npm&yarn](https://github.com/yanyue404/blog/issues/7)[开发者笔记]'
@@ -105,7 +115,7 @@ const IssuesInfoToToc = result => {
     content += `<h3>${key}</h3><br>`;
     content += `<ul>`;
     articles[key].forEach((m, index, arr) => {
-      content += `<li href="${m}">${m}</li>`;
+      content += `<li>${m}</li>`;
       if (index === arr.length - 1) {
         content += `<br>`;
       }
@@ -115,6 +125,7 @@ const IssuesInfoToToc = result => {
   let detailsStart = `<details open>
   <summary>Update time: ${formatTime(
     new Date(),
+    'YYYY-MM-DD',
   )} by <a href="https://github.com/yanyue404/issues2md">issues2md</a> :sunflower:</summary>`;
 
   let detailsEnd = ` </details>`;
@@ -122,6 +133,7 @@ const IssuesInfoToToc = result => {
   let markdown = turndownService.turndown(
     '<body>' + header + detailsStart + sort + content + detailsEnd + '</body>',
   );
+
   const dir = 'docs/';
   !fs.existsSync(dir) && fs.mkdirSync(dir);
   const TocContent = prettierFormatMarkdown(markdown).replace(/\\/g, '');
@@ -144,6 +156,7 @@ const exportIssuesBlogToc = async fetch_url => {
       title: o.title,
       url: o.html_url,
       labels: o.labels.map(item => item.name),
+      created_at: o.created_at,
     };
   });
   IssuesInfoToToc(result);

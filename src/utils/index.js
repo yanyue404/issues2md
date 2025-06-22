@@ -12,7 +12,7 @@ export const turndownService = new TurndownService({
 });
 
 // 确定要保留哪些元素并将其呈现为 HTML。
-turndownService.keep(['summary']);
+turndownService.keep(['summary', 'span']);
 
 // 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
 const gfm = turndownPluginGfm.gfm;
@@ -68,7 +68,7 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n;
 };
 
-export const formatTime = date => {
+export const formatTime = (date, format = 'YYYY-MM-DD HH:mm:ss') => {
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
@@ -76,11 +76,13 @@ export const formatTime = date => {
   const minute = date.getMinutes();
   const second = date.getSeconds();
 
-  return (
-    [year, month, day].map(formatNumber).join('-') +
-    ' ' +
-    [hour, minute, second].map(formatNumber).join(':')
-  );
+  return format
+    .replace('YYYY', year)
+    .replace('MM', month)
+    .replace('DD', day)
+    .replace('HH', hour)
+    .replace('mm', minute)
+    .replace('ss', second);
 };
 
 export const createFile = (fileDirectory, fileName, content) => {
