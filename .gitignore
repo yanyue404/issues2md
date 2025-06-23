@@ -1,11 +1,53 @@
+# Dependencies
+node_modules/
+pnpm-lock.yaml
+
+# Build output
+dist/
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# Output directories
+output/
+articles/
+
+# Temporary files
+tmp/
+temp/
+
 # always ignore files
-*.DS_Store
-.idea
 *.sublime-*
 build
 
 # npm
-node_modules
 npm-debug.log
 package-lock.json
 
