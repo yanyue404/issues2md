@@ -12,7 +12,7 @@ export const turndownService = new TurndownService({
 });
 
 // 确定要保留哪些元素并将其呈现为 HTML。
-turndownService.keep(['summary', 'span']);
+turndownService.keep(['summary', 'span', 'code']);
 
 // 使用 GitHub Flavored Markdown Spec https://github.github.com/gfm/#introduction
 const gfm = turndownPluginGfm.gfm;
