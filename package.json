@@ -1,67 +1,51 @@
 {
   "name": "issues2md",
-  "version": "0.0.5",
+  "version": "1.0.0",
   "description": "Export Github Issues (for bloggers) to markdown file",
-  "main": "app.js",
-  "scripts": {
-    "predev": "kill-port 3000",
-    "dev": "nodemon -r esm  ./src/app.js",
-    "dev:toc": "npm run dev toc https://github.com/yanyue404/blog",
-    "dev:issue": "npm run dev issue https://github.com/yanyue404/blog/issues/270",
-    "dev:articles": "npm run dev articles https://github.com/yanyue404/blog",
-    "build": "./node_modules/.bin/babel src --out-dir bin",
-    "prettier": "prettier --write \"./**/*.{ts,js,md,json}\"",
-    "test": "npm run dev toc https://github.com/woai3c/Front-end-articles",
-    "sh": "sh build.sh"
-  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
-    "issues2md": "./bin/commander.js"
+    "issues2md": "dist/cli.js"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/rainbow-design/issues2md.git"
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "start": "node dist/cli.js",
+    "prepublishOnly": "npm run build",
+    "clean": "rimraf dist",
+    "lint": "eslint src/**/*.ts",
+    "lint:fix": "eslint src/**/*.ts --fix"
   },
   "keywords": [
     "github",
     "issues",
     "markdown",
-    "export",
     "blog",
-    "issue"
+    "cli"
   ],
-  "author": "yanyue404",
+  "author": "",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/rainbow-design/issues2md/issues"
+  "engines": {
+    "node": ">=16.16.0"
   },
-  "homepage": "https://github.com/rainbow-design/issues2md#readme",
+  "packageManager": "pnpm@8.1.0",
   "dependencies": {
-    "axios": "0.19.0",
-    "cheerio": "1.0.0-rc.3",
-    "commander": "^6.0.0",
-    "filenamify": "^4.1.0",
-    "minimist": "^1.2.8",
-    "request": "2.88.2",
-    "turndown": "^5.0.3",
-    "turndown-plugin-gfm": "^1.0.2"
+    "commander": "^9.4.1",
+    "axios": "^1.1.3",
+    "chalk": "^4.1.2",
+    "ora": "^5.4.1",
+    "turndown": "^7.1.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.15.7",
-    "@babel/core": "^7.15.8",
-    "@babel/plugin-transform-modules-commonjs": "^7.15.4",
-    "@babel/plugin-transform-runtime": "^7.15.8",
-    "@babel/preset-env": "^7.15.8",
-    "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "husky": "^3.1.0",
-    "kill-port": "^1.6.1",
-    "nodemon": "^2.0.14",
-    "prettier": "^1.19.1",
-    "pretty-quick": "^2.0.1"
-  }
+    "@types/node": "^18.11.9",
+    "@types/turndown": "^5.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "eslint": "^8.27.0",
+    "rimraf": "^3.0.2",
+    "typescript": "^4.8.4"
+  },
+  "files": [
+    "dist"
+  ]
 }
